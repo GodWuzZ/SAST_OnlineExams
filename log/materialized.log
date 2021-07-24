@@ -1,0 +1,130 @@
+2021-07-24 22:06:20 [main] INFO  s.onlineexams.OnlineExamsApplication - Starting OnlineExamsApplication using Java 11.0.10 on LAPTOP-6BVE8T81 with PID 19644 (D:\projects\idea\OnlineExams\target\classes started by sherman in D:\projects\idea\OnlineExams)
+2021-07-24 22:06:20 [main] INFO  s.onlineexams.OnlineExamsApplication - No active profile set, falling back to default profiles: default
+2021-07-24 22:06:20 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-07-24 22:06:20 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Elasticsearch repositories in DEFAULT mode.
+2021-07-24 22:06:20 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 3 ms. Found 0 Elasticsearch repository interfaces.
+2021-07-24 22:06:20 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-07-24 22:06:20 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Reactive Elasticsearch repositories in DEFAULT mode.
+2021-07-24 22:06:20 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 0 ms. Found 0 Reactive Elasticsearch repository interfaces.
+2021-07-24 22:06:20 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-07-24 22:06:20 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
+2021-07-24 22:06:20 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 1 ms. Found 0 MongoDB repository interfaces.
+2021-07-24 22:06:20 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-07-24 22:06:20 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2021-07-24 22:06:20 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 1 ms. Found 0 Redis repository interfaces.
+2021-07-24 22:06:20 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - No MyBatis mapper was found in '[sast.onlineexams.mbg.mapper]' package. Please check your configuration.
+2021-07-24 22:06:20 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2021-07-24 22:06:20 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2021-07-24 22:06:20 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.50]
+2021-07-24 22:06:20 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2021-07-24 22:06:20 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 793 ms
+2021-07-24 22:06:21 [main] INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - Init DruidDataSource
+2021-07-24 22:06:21 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2021-07-24 22:06:22 [main] INFO  o.s.d.e.support.VersionInfo - Version Spring Data Elasticsearch: 4.2.3
+2021-07-24 22:06:22 [main] INFO  o.s.d.e.support.VersionInfo - Version Elasticsearch Client in build: 7.12.1
+2021-07-24 22:06:22 [main] INFO  o.s.d.e.support.VersionInfo - Version Elasticsearch Client used: 7.12.1
+2021-07-24 22:06:22 [main] INFO  org.mongodb.driver.cluster - Cluster created with settings {hosts=[localhost:27017], mode=SINGLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms'}
+2021-07-24 22:06:22 [main] WARN  o.s.data.convert.CustomConversions - Registering converter from class java.time.LocalDateTime to class org.joda.time.LocalDateTime as reading converter although it doesn't convert from a store-supported type! You might want to check your annotation setup at the converter implementation.
+2021-07-24 22:06:22 [main] WARN  o.s.data.convert.CustomConversions - Registering converter from class java.time.LocalDateTime to class org.joda.time.LocalDateTime as reading converter although it doesn't convert from a store-supported type! You might want to check your annotation setup at the converter implementation.
+2021-07-24 22:06:22 [main] INFO  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 8cc3e17d-305c-4c90-ac15-6e01c7fe578f
+
+2021-07-24 22:06:22 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@237aba92, org.springframework.security.web.context.SecurityContextPersistenceFilter@47f39279, org.springframework.security.web.header.HeaderWriterFilter@3aa1c45, org.springframework.security.web.csrf.CsrfFilter@5a99543b, org.springframework.security.web.authentication.logout.LogoutFilter@1c23e369, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@8e8ceb3, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@38445703, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@65b19e5c, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@2ae4c424, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@578198d9, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@d70dbeb, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6978a32a, org.springframework.security.web.session.SessionManagementFilter@1614499b, org.springframework.security.web.access.ExceptionTranslationFilter@3921e96f, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@691eb389]
+2021-07-24 22:06:22 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2021-07-24 22:06:22 [main] INFO  s.onlineexams.OnlineExamsApplication - Started OnlineExamsApplication in 3.046 seconds (JVM running for 3.74)
+2021-07-24 22:06:24 [cluster-ClusterId{value='60fc1e5e2bb51338dac6d8f8', description='null'}-localhost:27017] INFO  org.mongodb.driver.cluster - Exception in monitor thread while connecting to server localhost:27017
+com.mongodb.MongoSocketOpenException: Exception opening socket
+	at com.mongodb.internal.connection.SocketStream.open(SocketStream.java:70)
+	at com.mongodb.internal.connection.InternalStreamConnection.open(InternalStreamConnection.java:143)
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.lookupServerDescription(DefaultServerMonitor.java:188)
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.run(DefaultServerMonitor.java:144)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: java.net.ConnectException: Connection refused: connect
+	at java.base/java.net.PlainSocketImpl.waitForConnect(Native Method)
+	at java.base/java.net.PlainSocketImpl.socketConnect(PlainSocketImpl.java:107)
+	at java.base/java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:399)
+	at java.base/java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:242)
+	at java.base/java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:224)
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.base/java.net.Socket.connect(Socket.java:608)
+	at com.mongodb.internal.connection.SocketStreamHelper.initialize(SocketStreamHelper.java:107)
+	at com.mongodb.internal.connection.SocketStream.initializeSocket(SocketStream.java:79)
+	at com.mongodb.internal.connection.SocketStream.open(SocketStream.java:65)
+	... 4 common frames omitted
+2021-07-24 22:08:12 [main] INFO  s.onlineexams.OnlineExamsApplication - Starting OnlineExamsApplication using Java 11.0.10 on LAPTOP-6BVE8T81 with PID 13344 (D:\projects\idea\OnlineExams\target\classes started by sherman in D:\projects\idea\OnlineExams)
+2021-07-24 22:08:12 [main] INFO  s.onlineexams.OnlineExamsApplication - No active profile set, falling back to default profiles: default
+2021-07-24 22:08:13 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-07-24 22:08:13 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Elasticsearch repositories in DEFAULT mode.
+2021-07-24 22:08:13 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 3 ms. Found 0 Elasticsearch repository interfaces.
+2021-07-24 22:08:13 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-07-24 22:08:13 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Reactive Elasticsearch repositories in DEFAULT mode.
+2021-07-24 22:08:13 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 0 ms. Found 0 Reactive Elasticsearch repository interfaces.
+2021-07-24 22:08:13 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-07-24 22:08:13 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
+2021-07-24 22:08:13 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 1 ms. Found 0 MongoDB repository interfaces.
+2021-07-24 22:08:13 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-07-24 22:08:13 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2021-07-24 22:08:13 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 1 ms. Found 0 Redis repository interfaces.
+2021-07-24 22:08:13 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - No MyBatis mapper was found in '[sast.onlineexams.mbg.mapper]' package. Please check your configuration.
+2021-07-24 22:08:13 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2021-07-24 22:08:13 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2021-07-24 22:08:13 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.50]
+2021-07-24 22:08:13 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2021-07-24 22:08:13 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 807 ms
+2021-07-24 22:08:13 [main] INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - Init DruidDataSource
+2021-07-24 22:08:13 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2021-07-24 22:08:15 [main] INFO  o.s.d.e.support.VersionInfo - Version Spring Data Elasticsearch: 4.2.3
+2021-07-24 22:08:15 [main] INFO  o.s.d.e.support.VersionInfo - Version Elasticsearch Client in build: 7.12.1
+2021-07-24 22:08:15 [main] INFO  o.s.d.e.support.VersionInfo - Version Elasticsearch Client used: 7.12.1
+2021-07-24 22:08:15 [main] WARN  o.s.data.convert.CustomConversions - Registering converter from class java.time.LocalDateTime to class org.joda.time.LocalDateTime as reading converter although it doesn't convert from a store-supported type! You might want to check your annotation setup at the converter implementation.
+2021-07-24 22:08:15 [main] INFO  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 81505708-480b-4f8e-b0ff-d350dde2e214
+
+2021-07-24 22:08:15 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@28c7fd9d, org.springframework.security.web.context.SecurityContextPersistenceFilter@2b19b346, org.springframework.security.web.header.HeaderWriterFilter@7cbede2b, org.springframework.security.web.csrf.CsrfFilter@7b10472e, org.springframework.security.web.authentication.logout.LogoutFilter@5ddf5118, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@7112fa5, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@7b9d1a4, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@6a63ff31, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@37083af6, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@706d2bae, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5751e53e, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1c4aa701, org.springframework.security.web.session.SessionManagementFilter@2d3d4a54, org.springframework.security.web.access.ExceptionTranslationFilter@1eb7ec59, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@671f545b]
+2021-07-24 22:08:15 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2021-07-24 22:08:15 [main] INFO  s.onlineexams.OnlineExamsApplication - Started OnlineExamsApplication in 3.007 seconds (JVM running for 3.706)
+2021-07-24 22:08:24 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-07-24 22:08:24 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2021-07-24 22:08:24 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2021-07-24 22:08:24 [http-nio-8080-exec-1] WARN  o.a.c.util.SessionIdGeneratorBase - Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [162] milliseconds.
+2021-07-24 22:16:15 [main] INFO  s.onlineexams.OnlineExamsApplication - Starting OnlineExamsApplication using Java 11.0.10 on LAPTOP-6BVE8T81 with PID 21184 (D:\projects\idea\OnlineExams\target\classes started by sherman in D:\projects\idea\OnlineExams)
+2021-07-24 22:16:15 [main] INFO  s.onlineexams.OnlineExamsApplication - No active profile set, falling back to default profiles: default
+2021-07-24 22:16:16 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-07-24 22:16:16 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Elasticsearch repositories in DEFAULT mode.
+2021-07-24 22:16:16 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 3 ms. Found 0 Elasticsearch repository interfaces.
+2021-07-24 22:16:16 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-07-24 22:16:16 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Reactive Elasticsearch repositories in DEFAULT mode.
+2021-07-24 22:16:16 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 0 ms. Found 0 Reactive Elasticsearch repository interfaces.
+2021-07-24 22:16:16 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-07-24 22:16:16 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
+2021-07-24 22:16:16 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 0 ms. Found 0 MongoDB repository interfaces.
+2021-07-24 22:16:16 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-07-24 22:16:16 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2021-07-24 22:16:16 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 0 ms. Found 0 Redis repository interfaces.
+2021-07-24 22:16:16 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - No MyBatis mapper was found in '[sast.onlineexams.mbg.mapper]' package. Please check your configuration.
+2021-07-24 22:16:16 [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@6fbc1bb' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-07-24 22:16:16 [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-07-24 22:16:16 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2021-07-24 22:16:16 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2021-07-24 22:16:16 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.50]
+2021-07-24 22:16:16 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2021-07-24 22:16:16 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 822 ms
+2021-07-24 22:16:16 [main] INFO  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 13f10853-127e-442b-abd7-371f66ac4846
+
+2021-07-24 22:16:16 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@37af24cb, org.springframework.security.web.context.SecurityContextPersistenceFilter@24876a7e, org.springframework.security.web.header.HeaderWriterFilter@7f977fba, org.springframework.security.web.authentication.logout.LogoutFilter@58278366, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5a1dddba, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1142d377, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7926352f, org.springframework.security.web.session.SessionManagementFilter@76973a6, org.springframework.security.web.access.ExceptionTranslationFilter@1e545821, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@5d124d29]
+2021-07-24 22:16:17 [main] INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - Init DruidDataSource
+2021-07-24 22:16:17 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2021-07-24 22:16:18 [main] INFO  o.s.d.e.support.VersionInfo - Version Spring Data Elasticsearch: 4.2.3
+2021-07-24 22:16:18 [main] INFO  o.s.d.e.support.VersionInfo - Version Elasticsearch Client in build: 7.12.1
+2021-07-24 22:16:18 [main] INFO  o.s.d.e.support.VersionInfo - Version Elasticsearch Client used: 7.12.1
+2021-07-24 22:16:18 [main] WARN  o.s.data.convert.CustomConversions - Registering converter from class java.time.LocalDateTime to class org.joda.time.LocalDateTime as reading converter although it doesn't convert from a store-supported type! You might want to check your annotation setup at the converter implementation.
+2021-07-24 22:16:18 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2021-07-24 22:16:18 [main] INFO  s.onlineexams.OnlineExamsApplication - Started OnlineExamsApplication in 3.115 seconds (JVM running for 3.81)
+2021-07-24 22:16:24 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-07-24 22:16:24 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2021-07-24 22:16:24 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2021-07-24 22:16:46 [http-nio-8080-exec-4] INFO  s.o.controller.TestController - test controller
