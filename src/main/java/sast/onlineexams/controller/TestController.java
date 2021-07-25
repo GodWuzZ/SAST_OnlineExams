@@ -28,7 +28,7 @@ public class TestController {
         Map<String,String> res = new HashMap<String,String>();
         res.put("success","true");
         res.put("msg","hello world!");
-        logger.info("test controller");
+        logger.info("test controllerfdasfad");
         return res;
     }
 }

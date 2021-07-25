@@ -12,14 +12,15 @@ mybatis:
     - classpath:mapper/*.xml
 
 logging:
-  file:
-    name: ./log/materialized.log
-    path: ./log/
-  logback:
-    rollingpolicy:
-      max-file-size: 256MB
-      max-history: 20
+#  file:
+#    name: ./log/materialized.log
+#    path: ./log/
+#  logback:
+#    rollingpolicy:
+#      max-file-size: 256MB
+#      max-history: 20
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger- %msg%n"
     file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
-
+  level:
+    root: info
