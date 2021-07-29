@@ -3,22 +3,22 @@ package sast.onlineexams.mbg.model;
 import java.io.Serializable;
 import java.util.Date;
 
-public class UmsAdmin implements Serializable {
+public class UmsRole implements Serializable {
     private Long id;
 
     /**
-     * 用户名
+     * 角色名称
      *
      * @mbg.generated
      */
-    private String username;
+    private String name;
 
     /**
-     * 密码
+     * 角色描述
      *
      * @mbg.generated
      */
-    private String password;
+    private String description;
 
     /**
      * 创建时间
@@ -28,14 +28,7 @@ public class UmsAdmin implements Serializable {
     private Date createTime;
 
     /**
-     * 最后登录时间
-     *
-     * @mbg.generated
-     */
-    private Date loginTime;
-
-    /**
-     * 账号启用状态,0->禁用;1->启用
+     * 启用状态：0->禁用；1->启用
      *
      * @mbg.generated
      */
@@ -51,20 +44,20 @@ public class UmsAdmin implements Serializable {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getName() {
+        return name;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getPassword() {
-        return password;
+    public String getDescription() {
+        return description;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Date getCreateTime() {
@@ -73,14 +66,6 @@ public class UmsAdmin implements Serializable {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
-    }
-
-    public Date getLoginTime() {
-        return loginTime;
-    }
-
-    public void setLoginTime(Date loginTime) {
-        this.loginTime = loginTime;
     }
 
     public Integer getStatus() {
@@ -98,10 +83,9 @@ public class UmsAdmin implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", username=").append(username);
-        sb.append(", password=").append(password);
+        sb.append(", name=").append(name);
+        sb.append(", description=").append(description);
         sb.append(", createTime=").append(createTime);
-        sb.append(", loginTime=").append(loginTime);
         sb.append(", status=").append(status);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");

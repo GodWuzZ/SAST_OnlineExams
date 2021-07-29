@@ -10,6 +10,6 @@ import org.springframework.context.annotation.Configuration;
  */
 
 @Configuration
-@MapperScan("sast.onlineexams.mbg.mapper")
+@MapperScan({"sast.onlineexams.mbg.mapper","sast.onlineexams.dao"})
 public class MyBatisConfig {
 }
