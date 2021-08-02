@@ -11,7 +11,7 @@ import java.util.List;
  * @create 2021-07-29 12:59
  * @description 后台用户与角色管理自定义Dao
  */
-@Repository
+
 public interface UmsAdminRoleRelationDao {
     /**
      * 获取用户所有权限(包括+-权限)

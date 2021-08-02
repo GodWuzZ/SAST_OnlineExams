@@ -2,11 +2,9 @@ package sast.onlineexams.mbg.mapper;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 import sast.onlineexams.mbg.model.UmsAdmin;
 import sast.onlineexams.mbg.model.UmsAdminExample;
 
-@Repository
 public interface UmsAdminMapper {
     long countByExample(UmsAdminExample example);
 

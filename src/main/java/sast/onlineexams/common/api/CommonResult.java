@@ -1,6 +1,8 @@
 package sast.onlineexams.common.api;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * @author sherman
@@ -8,6 +10,8 @@ import lombok.Data;
  * @description 通用返回对象
  */
 
+@Getter
+@Setter
 public class CommonResult<T> {
     private long code;
     private String message;

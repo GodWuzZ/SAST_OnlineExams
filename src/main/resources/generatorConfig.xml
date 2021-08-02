@@ -36,7 +36,7 @@
         <javaClientGenerator type="XMLMAPPER" targetPackage="sast.onlineexams.mbg.mapper"
                              targetProject="src\main\java"/>
         <!--生成全部表tableName设为%-->
-        <table tableName="ums_admin">
+        <table tableName="%">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
     </context>
