@@ -64,8 +64,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .antMatchers(HttpMethod.OPTIONS)//跨域请求会先进行一次options请求
                 .permitAll()
-                .antMatchers("/**")//测试时全部运行访问
-                .permitAll()
+//                .antMatchers("/**")//测试时全部运行访问
+//                .permitAll()
                 .anyRequest()// 除上面外的所有请求全部需要鉴权认证
                 .authenticated();
         // 禁用缓存
@@ -89,6 +89,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+
     @Bean
     public UserDetailsService userDetailsService() {
         //获取登录用户信息
@@ -101,6 +102,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             throw new UsernameNotFoundException("用户名或密码错误");
         };
     }
+
+
 
     @Bean
     public JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter(){
