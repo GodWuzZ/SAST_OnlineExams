@@ -16,11 +16,14 @@ import org.springframework.stereotype.Service;
 import sast.onlineexams.common.utils.JwtTokenUtil;
 import sast.onlineexams.dao.UmsAdminRoleRelationDao;
 import sast.onlineexams.mbg.mapper.UmsAdminMapper;
+import sast.onlineexams.mbg.mapper.UmsPermissionMapper;
 import sast.onlineexams.mbg.model.UmsAdmin;
 import sast.onlineexams.mbg.model.UmsAdminExample;
 import sast.onlineexams.mbg.model.UmsPermission;
+import sast.onlineexams.mbg.model.UmsPermissionExample;
 import sast.onlineexams.service.UmsAdminService;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -42,6 +45,8 @@ public class UmsAdminServiceImpl implements UmsAdminService {
     private String tokenHead;
     @Autowired
     private UmsAdminMapper adminMapper;
+    @Autowired
+    private UmsPermissionMapper umsPermissionMapper;
     @Autowired
     private UmsAdminRoleRelationDao adminRoleRelationDao;
 
@@ -95,6 +100,36 @@ public class UmsAdminServiceImpl implements UmsAdminService {
 
     @Override
     public List<UmsPermission> getPermissionList(Long adminId) {
-        return adminRoleRelationDao.getPermissionList(adminId);
+        List<UmsPermission>permissions = adminRoleRelationDao.getPermissionList(adminId);
+        List<UmsPermission> results = new ArrayList<>();
+        results.addAll(permissions);
+        for(UmsPermission permission:permissions){
+            UmsPermissionExample example = new UmsPermissionExample();
+            example.createCriteria().andPidEqualTo(permission.getId());
+            results.addAll(umsPermissionMapper.selectByExample(example));
+    }
+        return results;
+    }
+
+    @Override
+    public int insertAdmin(UmsAdmin umsAdmin) {
+        return adminMapper.insertSelective(umsAdmin);
+    }
+
+    @Override
+    public int updateAdmin(UmsAdmin umsAdmin) {
+        return adminMapper.updateByPrimaryKeySelective(umsAdmin);
+    }
+
+    @Override
+    public int deleteAdmin(long id) {
+        return adminMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public List<UmsAdmin> adminList() {
+        UmsAdminExample example = new UmsAdminExample();
+        example.createCriteria();
+        return adminMapper.selectByExample(example);
     }
 }

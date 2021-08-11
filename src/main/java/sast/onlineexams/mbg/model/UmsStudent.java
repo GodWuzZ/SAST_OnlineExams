@@ -1,8 +1,14 @@
 package sast.onlineexams.mbg.model;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import java.io.Serializable;
 
 public class UmsStudent implements Serializable {
+
+    public interface StudentSimpleView{};
+    public interface StudentDetailView extends StudentSimpleView{};
+    @JsonView(StudentDetailView.class)
     private Long id;
 
     /**
@@ -10,6 +16,7 @@ public class UmsStudent implements Serializable {
      *
      * @mbg.generated
      */
+    @JsonView(StudentSimpleView.class)
     private String number;
 
     /**
@@ -17,6 +24,7 @@ public class UmsStudent implements Serializable {
      *
      * @mbg.generated
      */
+    @JsonView(StudentSimpleView.class)
     private String name;
 
     /**
@@ -24,6 +32,7 @@ public class UmsStudent implements Serializable {
      *
      * @mbg.generated
      */
+    @JsonView(StudentSimpleView.class)
     private String username;
 
     /**

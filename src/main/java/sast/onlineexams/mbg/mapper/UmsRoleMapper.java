@@ -1,10 +1,13 @@
 package sast.onlineexams.mbg.mapper;
 
 import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import sast.onlineexams.mbg.model.UmsRole;
 import sast.onlineexams.mbg.model.UmsRoleExample;
 
+@Mapper
 public interface UmsRoleMapper {
     long countByExample(UmsRoleExample example);
 

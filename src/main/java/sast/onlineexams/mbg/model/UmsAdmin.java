@@ -1,9 +1,15 @@
 package sast.onlineexams.mbg.model;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import java.io.Serializable;
 import java.util.Date;
 
 public class UmsAdmin implements Serializable {
+    public interface AdminSimpleView{};
+    public interface AdminDetailView extends AdminSimpleView{};
+    public interface AdminMoreDetailView extends AdminDetailView{};
+    @JsonView(AdminDetailView.class)
     private Long id;
 
     /**
@@ -11,6 +17,7 @@ public class UmsAdmin implements Serializable {
      *
      * @mbg.generated
      */
+    @JsonView(AdminSimpleView.class)
     private String username;
 
     /**
@@ -25,6 +32,7 @@ public class UmsAdmin implements Serializable {
      *
      * @mbg.generated
      */
+    @JsonView(AdminMoreDetailView.class)
     private Date createTime;
 
     /**
@@ -32,6 +40,7 @@ public class UmsAdmin implements Serializable {
      *
      * @mbg.generated
      */
+    @JsonView(AdminMoreDetailView.class)
     private Date loginTime;
 
     /**
@@ -39,6 +48,7 @@ public class UmsAdmin implements Serializable {
      *
      * @mbg.generated
      */
+    @JsonView(AdminSimpleView.class)
     private Integer status;
 
     private static final long serialVersionUID = 1L;

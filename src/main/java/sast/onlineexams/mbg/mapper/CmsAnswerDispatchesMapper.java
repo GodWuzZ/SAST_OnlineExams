@@ -1,10 +1,13 @@
 package sast.onlineexams.mbg.mapper;
 
 import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import sast.onlineexams.mbg.model.CmsAnswerDispatches;
 import sast.onlineexams.mbg.model.CmsAnswerDispatchesExample;
 
+@Mapper
 public interface CmsAnswerDispatchesMapper {
     long countByExample(CmsAnswerDispatchesExample example);
 

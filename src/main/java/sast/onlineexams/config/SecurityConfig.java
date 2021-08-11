@@ -22,7 +22,9 @@ import sast.onlineexams.component.RestfulAccessDeniedHandler;
 import sast.onlineexams.dto.AdminUserDetails;
 import sast.onlineexams.mbg.model.UmsAdmin;
 import sast.onlineexams.mbg.model.UmsPermission;
+import sast.onlineexams.mbg.model.UmsStudent;
 import sast.onlineexams.service.UmsAdminService;
+import sast.onlineexams.service.UmsStudentService;
 
 import java.util.List;
 
@@ -45,7 +47,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.csrf()// 由于使用的是JWT，我们这里不需要csrf
+        httpSecurity
+                .csrf()// 由于使用的是JWT，我们这里不需要csrf
                 .disable()
                 .sessionManagement()// 基于token，所以不需要session
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -60,7 +63,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.js"
                 )
                 .permitAll()
-                .antMatchers("/admin/login", "/admin/register")// 对登录注册要允许匿名访问
+                .antMatchers("/admin/login", "/admin/register","/login")// 对登录注册要允许匿名访问
                 .permitAll()
                 .antMatchers(HttpMethod.OPTIONS)//跨域请求会先进行一次options请求
                 .permitAll()
@@ -89,7 +92,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-
     @Bean
     public UserDetailsService userDetailsService() {
         //获取登录用户信息
@@ -103,8 +105,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         };
     }
 
-
-
     @Bean
     public JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter(){
         return new JwtAuthenticationTokenFilter();
@@ -115,7 +115,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
-
-
-
 }

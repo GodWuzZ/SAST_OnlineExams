@@ -1,10 +1,13 @@
 package sast.onlineexams.mbg.mapper;
 
 import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import sast.onlineexams.mbg.model.AmsProblems;
 import sast.onlineexams.mbg.model.AmsProblemsExample;
 
+@Mapper
 public interface AmsProblemsMapper {
     long countByExample(AmsProblemsExample example);
 

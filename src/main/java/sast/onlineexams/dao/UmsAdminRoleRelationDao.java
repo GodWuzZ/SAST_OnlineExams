@@ -1,5 +1,6 @@
 package sast.onlineexams.dao;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import sast.onlineexams.mbg.model.UmsPermission;
@@ -12,6 +13,7 @@ import java.util.List;
  * @description 后台用户与角色管理自定义Dao
  */
 
+@Mapper
 public interface UmsAdminRoleRelationDao {
     /**
      * 获取用户所有权限(包括+-权限)

@@ -34,7 +34,9 @@ public class JwtTokenUtil {
     private String generateToken(Map<String,Object>claims){
         return Jwts.builder()
                 .setClaims(claims)
+                .setIssuedAt(new Date())
                 .setExpiration(generateExpirationDate())
+                .setNotBefore(new Date(System.currentTimeMillis()))
                 .signWith(SignatureAlgorithm.HS512,secret)
                 .compact();
     }
@@ -77,6 +79,20 @@ public class JwtTokenUtil {
     }
 
     /**
+     * 从token中获取管理员标识
+     */
+    public Boolean getIsAdminFromToken(String token) {
+        Boolean isAdmin;
+        try {
+            Claims claims = getClaimsFromToken(token);
+            isAdmin =  (Boolean)claims.get("isAdmin");
+        } catch (Exception e) {
+            isAdmin = null;
+        }
+        return isAdmin;
+    }
+
+    /**
      * 验证token是否还有效
      *
      * @param token       客户端传入的token
@@ -110,6 +126,15 @@ public class JwtTokenUtil {
         Map<String, Object> claims = new HashMap<>();
         claims.put(CLAIM_KEY_USERNAME, userDetails.getUsername());
         claims.put(CLAIM_KEY_CREATED, new Date());
+        claims.put("isAdmin",true);
+        return generateToken(claims);
+    }
+
+    public String generateTokenDefault(UserDetails userDetails) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put(CLAIM_KEY_USERNAME, userDetails.getUsername());
+        claims.put(CLAIM_KEY_CREATED, new Date());
+        claims.put("isAdmin",false);
         return generateToken(claims);
     }
 

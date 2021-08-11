@@ -33,4 +33,9 @@ public interface UmsAdminService {
      * 获取用户所有权限（包括角色权限和+-权限）
      */
     List<UmsPermission> getPermissionList(Long adminId);
+    int insertAdmin(UmsAdmin umsAdmin);
+    int updateAdmin(UmsAdmin umsAdmin);
+    int deleteAdmin(long id);
+    List<UmsAdmin>adminList();
+
 }
