@@ -244,53 +244,173 @@ public class AmsProblemsExample {
             return (Criteria) this;
         }
 
-        public Criteria andTypeEqualTo(Boolean value) {
+        public Criteria andTypeEqualTo(Integer value) {
             addCriterion("type =", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeNotEqualTo(Boolean value) {
+        public Criteria andTypeNotEqualTo(Integer value) {
             addCriterion("type <>", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeGreaterThan(Boolean value) {
+        public Criteria andTypeGreaterThan(Integer value) {
             addCriterion("type >", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeGreaterThanOrEqualTo(Boolean value) {
+        public Criteria andTypeGreaterThanOrEqualTo(Integer value) {
             addCriterion("type >=", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeLessThan(Boolean value) {
+        public Criteria andTypeLessThan(Integer value) {
             addCriterion("type <", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeLessThanOrEqualTo(Boolean value) {
+        public Criteria andTypeLessThanOrEqualTo(Integer value) {
             addCriterion("type <=", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeIn(List<Boolean> values) {
+        public Criteria andTypeIn(List<Integer> values) {
             addCriterion("type in", values, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeNotIn(List<Boolean> values) {
+        public Criteria andTypeNotIn(List<Integer> values) {
             addCriterion("type not in", values, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeBetween(Boolean value1, Boolean value2) {
+        public Criteria andTypeBetween(Integer value1, Integer value2) {
             addCriterion("type between", value1, value2, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeNotBetween(Boolean value1, Boolean value2) {
+        public Criteria andTypeNotBetween(Integer value1, Integer value2) {
             addCriterion("type not between", value1, value2, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxScoreIsNull() {
+            addCriterion("max_score is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxScoreIsNotNull() {
+            addCriterion("max_score is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxScoreEqualTo(Integer value) {
+            addCriterion("max_score =", value, "maxScore");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxScoreNotEqualTo(Integer value) {
+            addCriterion("max_score <>", value, "maxScore");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxScoreGreaterThan(Integer value) {
+            addCriterion("max_score >", value, "maxScore");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxScoreGreaterThanOrEqualTo(Integer value) {
+            addCriterion("max_score >=", value, "maxScore");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxScoreLessThan(Integer value) {
+            addCriterion("max_score <", value, "maxScore");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxScoreLessThanOrEqualTo(Integer value) {
+            addCriterion("max_score <=", value, "maxScore");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxScoreIn(List<Integer> values) {
+            addCriterion("max_score in", values, "maxScore");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxScoreNotIn(List<Integer> values) {
+            addCriterion("max_score not in", values, "maxScore");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxScoreBetween(Integer value1, Integer value2) {
+            addCriterion("max_score between", value1, value2, "maxScore");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxScoreNotBetween(Integer value1, Integer value2) {
+            addCriterion("max_score not between", value1, value2, "maxScore");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupIdIsNull() {
+            addCriterion("group_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupIdIsNotNull() {
+            addCriterion("group_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupIdEqualTo(Long value) {
+            addCriterion("group_id =", value, "groupId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupIdNotEqualTo(Long value) {
+            addCriterion("group_id <>", value, "groupId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupIdGreaterThan(Long value) {
+            addCriterion("group_id >", value, "groupId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("group_id >=", value, "groupId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupIdLessThan(Long value) {
+            addCriterion("group_id <", value, "groupId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupIdLessThanOrEqualTo(Long value) {
+            addCriterion("group_id <=", value, "groupId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupIdIn(List<Long> values) {
+            addCriterion("group_id in", values, "groupId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupIdNotIn(List<Long> values) {
+            addCriterion("group_id not in", values, "groupId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupIdBetween(Long value1, Long value2) {
+            addCriterion("group_id between", value1, value2, "groupId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupIdNotBetween(Long value1, Long value2) {
+            addCriterion("group_id not between", value1, value2, "groupId");
             return (Criteria) this;
         }
     }

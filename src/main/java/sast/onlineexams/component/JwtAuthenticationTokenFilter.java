@@ -45,26 +45,28 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             String authToken = authHeader.substring(this.tokenHead.length());// The part after "Bearer "
             String username = jwtTokenUtil.getUserNameFromToken(authToken);
             Boolean isAdmin = jwtTokenUtil.getIsAdminFromToken(authToken);
-            if(isAdmin){
-                LOGGER.info("checking admin username:{}", username);
-                if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                    UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
-                    if (jwtTokenUtil.validateToken(authToken, userDetails)) {
-                        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-                        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                        LOGGER.info("authenticated admin:{}", username);
-                        SecurityContextHolder.getContext().setAuthentication(authentication);
+            if(isAdmin!=null){
+                if(isAdmin){
+                    LOGGER.info("checking admin username:{}", username);
+                    if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                        UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
+                        if (jwtTokenUtil.validateToken(authToken, userDetails)) {
+                            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                            authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                            LOGGER.info("authenticated admin:{}", username);
+                            SecurityContextHolder.getContext().setAuthentication(authentication);
+                        }
                     }
-                }
-            }else{
-                LOGGER.info("checking student username:{}", username);
-                if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                    UserDetails userDetails = new StudentUserDetails(umsStudentService.getStudentByUsername(username));
-                    if (jwtTokenUtil.validateToken(authToken, userDetails)) {
-                        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, null);
-                        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                        LOGGER.info("authenticated student:{}", username);
-                        SecurityContextHolder.getContext().setAuthentication(authentication);
+                }else{
+                    LOGGER.info("checking student username:{}", username);
+                    if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                        UserDetails userDetails = new StudentUserDetails(umsStudentService.getStudentByUsername(username));
+                        if (jwtTokenUtil.validateToken(authToken, userDetails)) {
+                            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, null);
+                            authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                            LOGGER.info("authenticated student:{}", username);
+                            SecurityContextHolder.getContext().setAuthentication(authentication);
+                        }
                     }
                 }
             }

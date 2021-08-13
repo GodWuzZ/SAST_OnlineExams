@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sast.onlineexams.dao.CmsAnswerDispatchDao">
+    <select id="getAnswers" resultMap="sast.onlineexams.mbg.mapper.CmsAnswersMapper.BaseResultMap">
+        SELECT
+            *
+        FROM
+            cms_answers an
+        WHERE
+            an.problem_id = #{problem_id}
+          AND an.id NOT IN (
+            SELECT
+                ad.answer_id
+            FROM
+                cms_answer_dispatches ad
+            WHERE
+                ad.problem_id=#{problem_id}
+        )
+        UNION
+        SELECT
+            an.*
+        FROM
+            cms_answer_dispatches ad
+                LEFT JOIN cms_answers an ON ad.answer_id = an.id
+        WHERE
+            ad.solved = 0
+            AND NOW()>ad.expired_at
+        LIMIT #{num}
+    </select>
+</mapper>

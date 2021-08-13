@@ -32,34 +32,37 @@ public class UmsStudentController {
     private String tokenHead;
 
     @PostMapping("/login")
+    @JsonView(UmsStudent.StudentDetailView.class)
     public CommonResult login(@RequestBody UmsStudentLoginParam umsStudentLoginParam, BindingResult result) {
         String token = umsStudentService.login(umsStudentLoginParam.getUsername(), umsStudentLoginParam.getPassword());
         if (token == null) {
             return CommonResult.validateFailed("用户名或密码错误");
         }
-        Map<String, String> tokenMap = new HashMap<>();
+        Map<String, Object> tokenMap = new HashMap<>();
         tokenMap.put("token", token);
         tokenMap.put("tokenHead", tokenHead);
+        UmsStudent student = umsStudentService.getStudentByUsername(umsStudentLoginParam.getUsername());
+        tokenMap.put("studentInfo",student);
         return CommonResult.success(tokenMap);
     }
 
     @PreAuthorize("hasAuthority('ums:student:create')")
     @PostMapping("/admin/studentInfo")
-    public CommonResult insertStudent(@RequestBody UmsStudent umsStudent){
+    public CommonResult<UmsStudent> insertStudent(@RequestBody UmsStudent umsStudent){
         umsStudentService.insertStudent(umsStudent);
         return CommonResult.success(umsStudent);
     }
 
     @PreAuthorize("hasAuthority('ums:student:update')")
     @PutMapping("/admin/studentInfo")
-    public CommonResult updateStudent(@RequestBody UmsStudent umsStudent){
+    public CommonResult<UmsStudent> updateStudent(@RequestBody UmsStudent umsStudent){
         umsStudentService.updateStudent(umsStudent);
         return CommonResult.success(umsStudent);
     }
 
     @PreAuthorize("hasAuthority('ums:student:delete')")
     @DeleteMapping("/admin/studentInfo")
-    public CommonResult deleteStudent(@RequestParam long id){
+    public CommonResult<Long> deleteStudent(@RequestParam long id){
         umsStudentService.deleteStudent(id);
         return CommonResult.success(id);
     }
@@ -67,8 +70,8 @@ public class UmsStudentController {
     @JsonView(UmsStudent.StudentDetailView.class)
     @PreAuthorize("hasAuthority('ums:student:read')")
     @GetMapping("/admin/studentInfo")
-    public List<UmsStudent> studentList(){
-        return umsStudentService.studentList();
+    public CommonResult<List<UmsStudent>> studentList(){
+        return CommonResult.success(umsStudentService.studentList());
     }
 
     @PreAuthorize("hasAuthority('ums:student:create')")

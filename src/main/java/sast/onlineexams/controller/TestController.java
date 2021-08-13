@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.*;
 import sast.onlineexams.common.api.CommonResult;
 import sast.onlineexams.component.WebSocket;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -24,7 +26,7 @@ public class TestController {
     Logger logger = LoggerFactory.getLogger(TestController.class);
 
     @Autowired
-    WebSocket webSocket;
+    private WebSocket webSocket;
     @RequestMapping("/helloWorld")
     @PreAuthorize("hasAuthority('ums:admin:create')")
     public Map<String,String> helloWorld(){
@@ -49,12 +51,15 @@ public class TestController {
 
     @GetMapping("/sendAllWebSocket")
     public String testWebSocket(){
-        String text="你们好！这是websocket群体发送！";
-        webSocket.sendAllMessage(text);
+        String text="你们好！测试json格式转换！";
+        List<String> list = new ArrayList<>();
+        list.add("dfaf");
+        list.add("fdafda");
+        webSocket.sendAllMessage(text,list);
         return text;
     }
 
-    @GetMapping("/sendOneWebSocket/{username}")
+    @GetMapping("/ws/{username}")
     public String sendOneWebSocket(@PathVariable("username") String username){
         String text=username+" 你好！ 这是websocket单人发送！";
         webSocket.sendOneMessage(username,text);

@@ -1,8 +1,13 @@
 package sast.onlineexams.mbg.model;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import java.io.Serializable;
 
 public class AmsProblems implements Serializable {
+    public interface ProblemSimpleView{};
+    public interface ProblemDetailView extends ProblemSimpleView{};
+    @JsonView(ProblemSimpleView.class)
     private Long id;
 
     /**
@@ -10,6 +15,7 @@ public class AmsProblems implements Serializable {
      *
      * @mbg.generated
      */
+    @JsonView(ProblemSimpleView.class)
     private String title;
 
     /**
@@ -17,14 +23,40 @@ public class AmsProblems implements Serializable {
      *
      * @mbg.generated
      */
-    private Boolean type;
+    @JsonView(ProblemSimpleView.class)
+    private Integer type;
+
+    /**
+     * 题目分数
+     *
+     * @mbg.generated
+     */
+    @JsonView(ProblemSimpleView.class)
+    private Integer maxScore;
+
+    /**
+     * 所属小组
+     *
+     * @mbg.generated
+     */
+    @JsonView(ProblemDetailView.class)
+    private Long groupId;
 
     /**
      * 题目内容
      *
      * @mbg.generated
      */
+    @JsonView(ProblemSimpleView.class)
     private String content;
+
+    /**
+     * 题目标准答案
+     *
+     * @mbg.generated
+     */
+    @JsonView(ProblemDetailView.class)
+    private String standardAnswer;
 
     private static final long serialVersionUID = 1L;
 
@@ -44,12 +76,28 @@ public class AmsProblems implements Serializable {
         this.title = title;
     }
 
-    public Boolean getType() {
+    public Integer getType() {
         return type;
     }
 
-    public void setType(Boolean type) {
+    public void setType(Integer type) {
         this.type = type;
+    }
+
+    public Integer getMaxScore() {
+        return maxScore;
+    }
+
+    public void setMaxScore(Integer maxScore) {
+        this.maxScore = maxScore;
+    }
+
+    public Long getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(Long groupId) {
+        this.groupId = groupId;
     }
 
     public String getContent() {
@@ -58,6 +106,14 @@ public class AmsProblems implements Serializable {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getStandardAnswer() {
+        return standardAnswer;
+    }
+
+    public void setStandardAnswer(String standardAnswer) {
+        this.standardAnswer = standardAnswer;
     }
 
     @Override
@@ -69,7 +125,10 @@ public class AmsProblems implements Serializable {
         sb.append(", id=").append(id);
         sb.append(", title=").append(title);
         sb.append(", type=").append(type);
+        sb.append(", maxScore=").append(maxScore);
+        sb.append(", groupId=").append(groupId);
         sb.append(", content=").append(content);
+        sb.append(", standardAnswer=").append(standardAnswer);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

@@ -9,7 +9,7 @@ public class UmsAdmin implements Serializable {
     public interface AdminSimpleView{};
     public interface AdminDetailView extends AdminSimpleView{};
     public interface AdminMoreDetailView extends AdminDetailView{};
-    @JsonView(AdminDetailView.class)
+    @JsonView({AdminSimpleView.class})
     private Long id;
 
     /**
@@ -17,7 +17,7 @@ public class UmsAdmin implements Serializable {
      *
      * @mbg.generated
      */
-    @JsonView(AdminSimpleView.class)
+    @JsonView({AdminSimpleView.class})
     private String username;
 
     /**
@@ -32,7 +32,7 @@ public class UmsAdmin implements Serializable {
      *
      * @mbg.generated
      */
-    @JsonView(AdminMoreDetailView.class)
+    @JsonView({AdminDetailView.class})
     private Date createTime;
 
     /**
@@ -40,7 +40,7 @@ public class UmsAdmin implements Serializable {
      *
      * @mbg.generated
      */
-    @JsonView(AdminMoreDetailView.class)
+    @JsonView({AdminDetailView.class})
     private Date loginTime;
 
     /**
@@ -48,8 +48,16 @@ public class UmsAdmin implements Serializable {
      *
      * @mbg.generated
      */
-    @JsonView(AdminSimpleView.class)
+    @JsonView({AdminSimpleView.class})
     private Integer status;
+
+    /**
+     * 所属小组的id
+     *
+     * @mbg.generated
+     */
+    @JsonView({AdminSimpleView.class})
+    private Long groupId;
 
     private static final long serialVersionUID = 1L;
 
@@ -101,6 +109,14 @@ public class UmsAdmin implements Serializable {
         this.status = status;
     }
 
+    public Long getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(Long groupId) {
+        this.groupId = groupId;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -113,6 +129,7 @@ public class UmsAdmin implements Serializable {
         sb.append(", createTime=").append(createTime);
         sb.append(", loginTime=").append(loginTime);
         sb.append(", status=").append(status);
+        sb.append(", groupId=").append(groupId);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

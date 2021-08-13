@@ -1,7 +1,9 @@
 package sast.onlineexams.service;
 
 import sast.onlineexams.mbg.model.UmsAdmin;
+import sast.onlineexams.mbg.model.UmsGroups;
 import sast.onlineexams.mbg.model.UmsPermission;
+import sast.onlineexams.mbg.model.UmsRole;
 
 import java.util.List;
 
@@ -37,5 +39,10 @@ public interface UmsAdminService {
     int updateAdmin(UmsAdmin umsAdmin);
     int deleteAdmin(long id);
     List<UmsAdmin>adminList();
+    List<UmsRole>getRoleList();
+    int addGroup(UmsGroups group);
+    int updateGroup(UmsGroups group);
+    int deleteGroup(Long id);
+    List<UmsGroups>getGroups();
 
 }

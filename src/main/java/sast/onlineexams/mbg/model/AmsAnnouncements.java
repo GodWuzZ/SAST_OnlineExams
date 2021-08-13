@@ -1,5 +1,7 @@
 package sast.onlineexams.mbg.model;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import java.io.Serializable;
 
 public class AmsAnnouncements implements Serializable {

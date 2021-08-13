@@ -1,8 +1,12 @@
 package sast.onlineexams.common.api;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import sast.onlineexams.mbg.model.AmsProblems;
+import sast.onlineexams.mbg.model.UmsAdmin;
+import sast.onlineexams.mbg.model.UmsStudent;
 
 /**
  * @author sherman
@@ -15,6 +19,9 @@ import lombok.Setter;
 public class CommonResult<T> {
     private long code;
     private String message;
+
+    @JsonView({UmsAdmin.AdminSimpleView.class, UmsAdmin.AdminDetailView.class,
+            UmsStudent.StudentSimpleView.class, UmsStudent.StudentDetailView.class, AmsProblems.ProblemSimpleView.class, AmsProblems.ProblemDetailView.class})
     private T data;
 
     protected CommonResult() {

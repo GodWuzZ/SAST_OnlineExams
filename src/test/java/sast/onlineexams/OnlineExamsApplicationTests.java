@@ -1,13 +1,18 @@
 package sast.onlineexams;
 
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import sast.onlineexams.dao.UmsAdminRoleRelationDao;
+import sast.onlineexams.mbg.mapper.UmsAdminMapper;
 import sast.onlineexams.mbg.mapper.UmsPermissionMapper;
+import sast.onlineexams.mbg.model.UmsAdmin;
+import sast.onlineexams.mbg.model.UmsAdminExample;
 import sast.onlineexams.mbg.model.UmsPermission;
 import sast.onlineexams.mbg.model.UmsPermissionExample;
 
@@ -16,26 +21,31 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class OnlineExamsApplicationTests {
-
+    private static final Logger LOGGER=LoggerFactory.getLogger(OnlineExamsApplicationTests.class);
     @Autowired
-    DataSource dataSource;
+    private DataSource dataSource;
     @Autowired
-    UmsPermissionMapper umsPermissionMapper;
+    private UmsPermissionMapper umsPermissionMapper;
     @Autowired
-    UmsAdminRoleRelationDao adminRoleRelationDao;
+    private UmsAdminRoleRelationDao adminRoleRelationDao;
+    @Autowired
+    private UmsAdminMapper adminMapper;
     @Test
-    void contextLoads() throws SQLException {
-//        System.out.println(dataSource.getConnection());
-        List<UmsPermission>permissions = adminRoleRelationDao.getPermissionList((long)1);
-        for(UmsPermission permission:permissions){
-            UmsPermissionExample example=new UmsPermissionExample();
-            example.createCriteria().andPidEqualTo(permission.getId());
-            List<UmsPermission>childPermissions = umsPermissionMapper.selectByExample(example);
-            System.out.println(childPermissions.get(1).getValue());
+    void contextLoads(){
+        PageHelper.startPage(1,5);
+        List<UmsPermission>permissionList=umsPermissionMapper.selectByExample(new UmsPermissionExample());
+        PageHelper.startPage(2,5);
+        List<UmsAdmin>admins=adminMapper.selectByExample(new UmsAdminExample());
+        PageInfo<UmsPermission>pageInfo=new PageInfo<>(permissionList);
+        List<UmsPermission>list=pageInfo.getList();
+        for(UmsPermission permission:list){
+            LOGGER.info(permission.getName());
         }
-
+        for(UmsAdmin admin:admins){
+            LOGGER.info(admin.getUsername());
+        }
     }
 
-}
+    }

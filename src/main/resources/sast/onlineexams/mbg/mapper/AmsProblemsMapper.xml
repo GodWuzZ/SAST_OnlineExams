@@ -4,10 +4,13 @@
   <resultMap id="BaseResultMap" type="sast.onlineexams.mbg.model.AmsProblems">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="title" jdbcType="VARCHAR" property="title" />
-    <result column="type" jdbcType="BIT" property="type" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="max_score" jdbcType="INTEGER" property="maxScore" />
+    <result column="group_id" jdbcType="BIGINT" property="groupId" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="sast.onlineexams.mbg.model.AmsProblems">
     <result column="content" jdbcType="LONGVARCHAR" property="content" />
+    <result column="standard_answer" jdbcType="LONGVARCHAR" property="standardAnswer" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,10 +71,10 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, title, type
+    id, title, type, max_score, group_id
   </sql>
   <sql id="Blob_Column_List">
-    content
+    content, standard_answer
   </sql>
   <select id="selectByExampleWithBLOBs" parameterType="sast.onlineexams.mbg.model.AmsProblemsExample" resultMap="ResultMapWithBLOBs">
     select
@@ -125,9 +128,11 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into ams_problems (title, type, content
+    insert into ams_problems (title, type, max_score, 
+      group_id, content, standard_answer
       )
-    values (#{title,jdbcType=VARCHAR}, #{type,jdbcType=BIT}, #{content,jdbcType=LONGVARCHAR}
+    values (#{title,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{maxScore,jdbcType=INTEGER}, 
+      #{groupId,jdbcType=BIGINT}, #{content,jdbcType=LONGVARCHAR}, #{standardAnswer,jdbcType=LONGVARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="sast.onlineexams.mbg.model.AmsProblems">
@@ -142,8 +147,17 @@
       <if test="type != null">
         type,
       </if>
+      <if test="maxScore != null">
+        max_score,
+      </if>
+      <if test="groupId != null">
+        group_id,
+      </if>
       <if test="content != null">
         content,
+      </if>
+      <if test="standardAnswer != null">
+        standard_answer,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -151,10 +165,19 @@
         #{title,jdbcType=VARCHAR},
       </if>
       <if test="type != null">
-        #{type,jdbcType=BIT},
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="maxScore != null">
+        #{maxScore,jdbcType=INTEGER},
+      </if>
+      <if test="groupId != null">
+        #{groupId,jdbcType=BIGINT},
       </if>
       <if test="content != null">
         #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="standardAnswer != null">
+        #{standardAnswer,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -174,10 +197,19 @@
         title = #{record.title,jdbcType=VARCHAR},
       </if>
       <if test="record.type != null">
-        type = #{record.type,jdbcType=BIT},
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.maxScore != null">
+        max_score = #{record.maxScore,jdbcType=INTEGER},
+      </if>
+      <if test="record.groupId != null">
+        group_id = #{record.groupId,jdbcType=BIGINT},
       </if>
       <if test="record.content != null">
         content = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.standardAnswer != null">
+        standard_answer = #{record.standardAnswer,jdbcType=LONGVARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -188,8 +220,11 @@
     update ams_problems
     set id = #{record.id,jdbcType=BIGINT},
       title = #{record.title,jdbcType=VARCHAR},
-      type = #{record.type,jdbcType=BIT},
-      content = #{record.content,jdbcType=LONGVARCHAR}
+      type = #{record.type,jdbcType=INTEGER},
+      max_score = #{record.maxScore,jdbcType=INTEGER},
+      group_id = #{record.groupId,jdbcType=BIGINT},
+      content = #{record.content,jdbcType=LONGVARCHAR},
+      standard_answer = #{record.standardAnswer,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -198,7 +233,9 @@
     update ams_problems
     set id = #{record.id,jdbcType=BIGINT},
       title = #{record.title,jdbcType=VARCHAR},
-      type = #{record.type,jdbcType=BIT}
+      type = #{record.type,jdbcType=INTEGER},
+      max_score = #{record.maxScore,jdbcType=INTEGER},
+      group_id = #{record.groupId,jdbcType=BIGINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -210,10 +247,19 @@
         title = #{title,jdbcType=VARCHAR},
       </if>
       <if test="type != null">
-        type = #{type,jdbcType=BIT},
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="maxScore != null">
+        max_score = #{maxScore,jdbcType=INTEGER},
+      </if>
+      <if test="groupId != null">
+        group_id = #{groupId,jdbcType=BIGINT},
       </if>
       <if test="content != null">
         content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="standardAnswer != null">
+        standard_answer = #{standardAnswer,jdbcType=LONGVARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
@@ -221,14 +267,19 @@
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="sast.onlineexams.mbg.model.AmsProblems">
     update ams_problems
     set title = #{title,jdbcType=VARCHAR},
-      type = #{type,jdbcType=BIT},
-      content = #{content,jdbcType=LONGVARCHAR}
+      type = #{type,jdbcType=INTEGER},
+      max_score = #{maxScore,jdbcType=INTEGER},
+      group_id = #{groupId,jdbcType=BIGINT},
+      content = #{content,jdbcType=LONGVARCHAR},
+      standard_answer = #{standardAnswer,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="sast.onlineexams.mbg.model.AmsProblems">
     update ams_problems
     set title = #{title,jdbcType=VARCHAR},
-      type = #{type,jdbcType=BIT}
+      type = #{type,jdbcType=INTEGER},
+      max_score = #{maxScore,jdbcType=INTEGER},
+      group_id = #{groupId,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

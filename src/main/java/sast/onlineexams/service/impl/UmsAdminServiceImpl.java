@@ -16,11 +16,10 @@ import org.springframework.stereotype.Service;
 import sast.onlineexams.common.utils.JwtTokenUtil;
 import sast.onlineexams.dao.UmsAdminRoleRelationDao;
 import sast.onlineexams.mbg.mapper.UmsAdminMapper;
+import sast.onlineexams.mbg.mapper.UmsGroupsMapper;
 import sast.onlineexams.mbg.mapper.UmsPermissionMapper;
-import sast.onlineexams.mbg.model.UmsAdmin;
-import sast.onlineexams.mbg.model.UmsAdminExample;
-import sast.onlineexams.mbg.model.UmsPermission;
-import sast.onlineexams.mbg.model.UmsPermissionExample;
+import sast.onlineexams.mbg.mapper.UmsRoleMapper;
+import sast.onlineexams.mbg.model.*;
 import sast.onlineexams.service.UmsAdminService;
 
 import java.util.ArrayList;
@@ -46,9 +45,13 @@ public class UmsAdminServiceImpl implements UmsAdminService {
     @Autowired
     private UmsAdminMapper adminMapper;
     @Autowired
+    private UmsRoleMapper umsRoleMapper;
+    @Autowired
     private UmsPermissionMapper umsPermissionMapper;
     @Autowired
     private UmsAdminRoleRelationDao adminRoleRelationDao;
+    @Autowired
+    private UmsGroupsMapper umsGroupsMapper;
 
     @Override
     public UmsAdmin getAdminByUsername(String username) {
@@ -131,5 +134,38 @@ public class UmsAdminServiceImpl implements UmsAdminService {
         UmsAdminExample example = new UmsAdminExample();
         example.createCriteria();
         return adminMapper.selectByExample(example);
+    }
+
+    @Override
+    public List<UmsRole> getRoleList() {
+        UmsRoleExample example = new UmsRoleExample();
+        example.createCriteria();
+        return umsRoleMapper.selectByExample(example);
+    }
+
+    @Override
+    public int addGroup(UmsGroups group) {
+        return umsGroupsMapper.insertSelective(group);
+    }
+
+    @Override
+    public int updateGroup(UmsGroups group) {
+        return umsGroupsMapper.updateByPrimaryKeySelective(group);
+    }
+
+    @Override
+    public int deleteGroup(Long id) {
+        return umsGroupsMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public List<UmsGroups> getGroups() {
+        UmsGroupsExample example = new UmsGroupsExample();
+        example.createCriteria();
+        List<UmsGroups>groups = umsGroupsMapper.selectByExample(example);
+        if (groups!=null&&groups.size()>0){
+            return groups;
+        }
+        return null;
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import sast.onlineexams.common.api.CommonResult;
 import sast.onlineexams.dto.UmsAdminLoginParam;
 import sast.onlineexams.mbg.model.UmsAdmin;
+import sast.onlineexams.mbg.model.UmsGroups;
 import sast.onlineexams.mbg.model.UmsPermission;
 import sast.onlineexams.mbg.model.UmsStudent;
 import sast.onlineexams.service.UmsAdminService;
@@ -42,15 +43,18 @@ public class UmsAdminController {
         return CommonResult.success(umsAdmin);
     }
 
+    @JsonView(UmsAdmin.AdminSimpleView.class)
     @PostMapping("/login")
     public CommonResult login(@RequestBody UmsAdminLoginParam umsAdminLoginParam, BindingResult result) {
         String token = umsAdminService.login(umsAdminLoginParam.getUsername(), umsAdminLoginParam.getPassword());
         if (token == null) {
             return CommonResult.validateFailed("用户名或密码错误");
         }
-        Map<String, String> tokenMap = new HashMap<>();
+        Map<String, Object> tokenMap = new HashMap<>();
         tokenMap.put("token", token);
         tokenMap.put("tokenHead", tokenHead);
+        UmsAdmin admin = umsAdminService.getAdminByUsername(umsAdminLoginParam.getUsername());
+        tokenMap.put("adminInfo",admin);
         return CommonResult.success(tokenMap);
     }
 
@@ -62,29 +66,56 @@ public class UmsAdminController {
 
     @PreAuthorize("hasAuthority('ums:admin:create')")
     @PostMapping("/userInfo")
-    public CommonResult insertAdmin(@RequestBody UmsAdmin umsAdmin){
+    public CommonResult<UmsAdmin> insertAdmin(@RequestBody UmsAdmin umsAdmin){
         umsAdminService.insertAdmin(umsAdmin);
         return CommonResult.success(umsAdmin);
     }
 
     @PreAuthorize("hasAuthority('ums:admin:update')")
     @PutMapping("/userInfo")
-    public CommonResult updateAdmin(@RequestBody UmsAdmin umsAdmin){
+    public CommonResult<UmsAdmin> updateAdmin(@RequestBody UmsAdmin umsAdmin){
         umsAdminService.updateAdmin(umsAdmin);
         return CommonResult.success(umsAdmin);
     }
 
     @PreAuthorize("hasAuthority('ums:admin:delete')")
     @DeleteMapping("/userInfo")
-    public CommonResult deleteAdmin(@RequestParam long id){
+    public CommonResult<Long> deleteAdmin(@RequestParam long id){
         umsAdminService.deleteAdmin(id);
         return CommonResult.success(id);
     }
 
-    @JsonView(UmsAdmin.AdminDetailView.class)
+    @JsonView(UmsAdmin.AdminSimpleView.class)
     @PreAuthorize("hasAuthority('ums:admin:read')")
     @GetMapping("/userInfo")
-    public List<UmsAdmin> adminList(){
-        return umsAdminService.adminList();
+    public CommonResult adminList(){
+        Map<String,Object>map=new HashMap<>();
+        map.put("adminList",umsAdminService.adminList());
+        map.put("roles",umsAdminService.getRoleList());
+        return CommonResult.success(map);
+    }
+
+    @PreAuthorize("hasAuthority('ums:groups:create')")
+    @PostMapping("/admin/group")
+    public CommonResult addGroup(@RequestBody UmsGroups group){
+        return CommonResult.success(umsAdminService.addGroup(group));
+    }
+
+    @PreAuthorize("hasAuthority('ums:groups:update')")
+    @PutMapping("/admin/group")
+    public CommonResult updateGroup(@RequestBody UmsGroups group){
+        return CommonResult.success(umsAdminService.updateGroup(group));
+    }
+
+    @PreAuthorize("hasAuthority('ums:groups:delete')")
+    @DeleteMapping("/admin/group")
+    public CommonResult deleteGroup(@RequestParam Long id){
+        return CommonResult.success(umsAdminService.deleteGroup(id));
+    }
+
+    @PreAuthorize("hasAuthority('ums:groups:read')")
+    @GetMapping("/admin/group")
+    public CommonResult getGroups(){
+        return CommonResult.success(umsAdminService.getGroups());
     }
 }
