@@ -6,12 +6,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import sast.onlineexams.common.api.CommonResult;
+import sast.onlineexams.common.utils.JwtTokenUtil;
+import sast.onlineexams.common.utils.RedisUtil;
 import sast.onlineexams.component.WebSocket;
+import sast.onlineexams.mbg.mapper.AmsProblemOptionsMapper;
+import sast.onlineexams.mbg.mapper.AmsProblemsMapper;
+import sast.onlineexams.mbg.model.AmsProblemOptions;
+import sast.onlineexams.mbg.model.AmsProblems;
+import sast.onlineexams.mbg.model.AmsProblemsExample;
+import sast.onlineexams.service.UmsAdminService;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 
 /**
@@ -27,6 +34,16 @@ public class TestController {
 
     @Autowired
     private WebSocket webSocket;
+    @Autowired
+    private UmsAdminService adminService;
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
+    @Autowired
+    RedisUtil redisUtil;
+    @Autowired
+    AmsProblemOptionsMapper optionsMapper;
+    @Autowired
+    private AmsProblemsMapper problemsMapper;
     @RequestMapping("/helloWorld")
     @PreAuthorize("hasAuthority('ums:admin:create')")
     public Map<String,String> helloWorld(){
@@ -67,7 +84,21 @@ public class TestController {
     }
 
     @GetMapping("/testSecurity")
-    public String security(){
-        return "fdsafafa";
+    public CommonResult security(@RequestParam String token){
+        return CommonResult.success(jwtTokenUtil.getIatFromToken(token),"获取iat成功");
+    }
+
+    @GetMapping("/testRedis")
+    public CommonResult redis() throws ParseException {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return CommonResult.success(redisUtil.get("date"),"redis日期存储测试");
+    }
+
+    @GetMapping("/problems")
+    public CommonResult option(){
+        AmsProblemsExample example = new AmsProblemsExample();
+        example.createCriteria();
+        List<AmsProblems> problems = problemsMapper.selectByExampleWithBLOBs(example);
+        return CommonResult.success(problems,"成功");
     }
 }

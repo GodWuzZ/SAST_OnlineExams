@@ -35,11 +35,14 @@ public class AmsAnswerServiceImpl implements AmsAnswerService {
 
     @Override
     public int submit(CmsAnswers answer) {
-        if(answersMapper.selectByPrimaryKey(answer.getId())!=null){
+        CmsAnswersExample example = new CmsAnswersExample();
+        example.createCriteria().andProblemIdEqualTo(answer.getProblemId()).andStudentIdEqualTo(answer.getStudentId());
+        List<CmsAnswers> answers = answersMapper.selectByExample(example);
+        if (answers!=null&&answers.size()>0){
+            answer.setId(answers.get(0).getId());
             return answersMapper.updateByPrimaryKeySelective(answer);
-        }else{
-            return answersMapper.insertSelective(answer);
         }
+        return answersMapper.insertSelective(answer);
     }
 
     @Override

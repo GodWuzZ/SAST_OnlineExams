@@ -5,9 +5,9 @@
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="student_id" jdbcType="BIGINT" property="studentId" />
     <result column="problem_id" jdbcType="BIGINT" property="problemId" />
+    <result column="option_value" jdbcType="VARCHAR" property="optionValue" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="sast.onlineexams.mbg.model.CmsAnswers">
-    <result column="option" jdbcType="LONGVARCHAR" property="option" />
     <result column="content" jdbcType="LONGVARCHAR" property="content" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -69,10 +69,10 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, student_id, problem_id
+    id, student_id, problem_id, option_value
   </sql>
   <sql id="Blob_Column_List">
-    option, content
+    content
   </sql>
   <select id="selectByExampleWithBLOBs" parameterType="sast.onlineexams.mbg.model.CmsAnswersExample" resultMap="ResultMapWithBLOBs">
     select
@@ -126,9 +126,9 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into cms_answers (student_id, problem_id, option, 
+    insert into cms_answers (student_id, problem_id, option_value, 
       content)
-    values (#{studentId,jdbcType=BIGINT}, #{problemId,jdbcType=BIGINT}, #{option,jdbcType=LONGVARCHAR}, 
+    values (#{studentId,jdbcType=BIGINT}, #{problemId,jdbcType=BIGINT}, #{optionValue,jdbcType=VARCHAR}, 
       #{content,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="sast.onlineexams.mbg.model.CmsAnswers">
@@ -143,8 +143,8 @@
       <if test="problemId != null">
         problem_id,
       </if>
-      <if test="option != null">
-        option,
+      <if test="optionValue != null">
+        option_value,
       </if>
       <if test="content != null">
         content,
@@ -157,8 +157,8 @@
       <if test="problemId != null">
         #{problemId,jdbcType=BIGINT},
       </if>
-      <if test="option != null">
-        #{option,jdbcType=LONGVARCHAR},
+      <if test="optionValue != null">
+        #{optionValue,jdbcType=VARCHAR},
       </if>
       <if test="content != null">
         #{content,jdbcType=LONGVARCHAR},
@@ -183,8 +183,8 @@
       <if test="record.problemId != null">
         problem_id = #{record.problemId,jdbcType=BIGINT},
       </if>
-      <if test="record.option != null">
-        option = #{record.option,jdbcType=LONGVARCHAR},
+      <if test="record.optionValue != null">
+        option_value = #{record.optionValue,jdbcType=VARCHAR},
       </if>
       <if test="record.content != null">
         content = #{record.content,jdbcType=LONGVARCHAR},
@@ -199,7 +199,7 @@
     set id = #{record.id,jdbcType=BIGINT},
       student_id = #{record.studentId,jdbcType=BIGINT},
       problem_id = #{record.problemId,jdbcType=BIGINT},
-      option = #{record.option,jdbcType=LONGVARCHAR},
+      option_value = #{record.optionValue,jdbcType=VARCHAR},
       content = #{record.content,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -209,7 +209,8 @@
     update cms_answers
     set id = #{record.id,jdbcType=BIGINT},
       student_id = #{record.studentId,jdbcType=BIGINT},
-      problem_id = #{record.problemId,jdbcType=BIGINT}
+      problem_id = #{record.problemId,jdbcType=BIGINT},
+      option_value = #{record.optionValue,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -223,8 +224,8 @@
       <if test="problemId != null">
         problem_id = #{problemId,jdbcType=BIGINT},
       </if>
-      <if test="option != null">
-        option = #{option,jdbcType=LONGVARCHAR},
+      <if test="optionValue != null">
+        option_value = #{optionValue,jdbcType=VARCHAR},
       </if>
       <if test="content != null">
         content = #{content,jdbcType=LONGVARCHAR},
@@ -236,14 +237,15 @@
     update cms_answers
     set student_id = #{studentId,jdbcType=BIGINT},
       problem_id = #{problemId,jdbcType=BIGINT},
-      option = #{option,jdbcType=LONGVARCHAR},
+      option_value = #{optionValue,jdbcType=VARCHAR},
       content = #{content,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="sast.onlineexams.mbg.model.CmsAnswers">
     update cms_answers
     set student_id = #{studentId,jdbcType=BIGINT},
-      problem_id = #{problemId,jdbcType=BIGINT}
+      problem_id = #{problemId,jdbcType=BIGINT},
+      option_value = #{optionValue,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

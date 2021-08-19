@@ -10,8 +10,7 @@ import java.util.List;
  * @description
  */
 public interface AmsNoticeService {
-    int insertNotice(AmsAnnouncements announcements);
-    int deleteNotice(Long id);
+    void deleteNotice(Long id);
     int updateNotice(AmsAnnouncements announcements);
     List<AmsAnnouncements> getNoticeList();
     AmsAnnouncements getNoticeById(Long id);

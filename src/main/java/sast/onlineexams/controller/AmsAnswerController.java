@@ -21,16 +21,17 @@ public class AmsAnswerController {
 
     @GetMapping("/duetime")
     public CommonResult getDueTime(){
-        return CommonResult.success(amsAnswerService.getDueTime());
+        return CommonResult.success(amsAnswerService.getDueTime(),"获取比赛结束时间成功");
     }
 
     @PostMapping("/submit")
     public CommonResult submit(@RequestBody CmsAnswers answer){
-        return CommonResult.success(submit(answer));
+        amsAnswerService.submit(answer);
+        return CommonResult.success(null,"答案提交成功");
     }
 
     @GetMapping("/submitted")
     public CommonResult getSubmitted(){
-        return CommonResult.success(amsAnswerService.getSubmitted());
+        return CommonResult.success(amsAnswerService.getSubmitted(),"获取已提交答案成功");
     }
 }

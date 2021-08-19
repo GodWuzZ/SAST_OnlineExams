@@ -17,11 +17,15 @@ import sast.onlineexams.mbg.model.UmsStudent;
 @Getter
 @Setter
 public class CommonResult<T> {
+    public interface CommonResultView{};
+    @JsonView(CommonResultView.class)
     private long code;
+    @JsonView(CommonResultView.class)
     private String message;
 
     @JsonView({UmsAdmin.AdminSimpleView.class, UmsAdmin.AdminDetailView.class,
-            UmsStudent.StudentSimpleView.class, UmsStudent.StudentDetailView.class, AmsProblems.ProblemSimpleView.class, AmsProblems.ProblemDetailView.class})
+            UmsStudent.StudentSimpleView.class, UmsStudent.StudentDetailView.class,
+            AmsProblems.ProblemSimpleView.class, AmsProblems.ProblemDetailView.class})
     private T data;
 
     protected CommonResult() {

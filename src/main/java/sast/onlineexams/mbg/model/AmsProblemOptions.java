@@ -1,10 +1,14 @@
 package sast.onlineexams.mbg.model;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import java.io.Serializable;
 
 public class AmsProblemOptions implements Serializable {
+    @JsonView(AmsProblems.ProblemSimpleView.class)
     private Long id;
 
+    @JsonView(AmsProblems.ProblemSimpleView.class)
     private Long problemId;
 
     /**
@@ -12,6 +16,7 @@ public class AmsProblemOptions implements Serializable {
      *
      * @mbg.generated
      */
+    @JsonView(AmsProblems.ProblemSimpleView.class)
     private String content;
 
     /**
@@ -19,7 +24,8 @@ public class AmsProblemOptions implements Serializable {
      *
      * @mbg.generated
      */
-    private String option;
+    @JsonView(AmsProblems.ProblemSimpleView.class)
+    private String value;
 
     private static final long serialVersionUID = 1L;
 
@@ -47,12 +53,12 @@ public class AmsProblemOptions implements Serializable {
         this.content = content;
     }
 
-    public String getOption() {
-        return option;
+    public String getValue() {
+        return value;
     }
 
-    public void setOption(String option) {
-        this.option = option;
+    public void setValue(String value) {
+        this.value = value;
     }
 
     @Override
@@ -64,7 +70,7 @@ public class AmsProblemOptions implements Serializable {
         sb.append(", id=").append(id);
         sb.append(", problemId=").append(problemId);
         sb.append(", content=").append(content);
-        sb.append(", option=").append(option);
+        sb.append(", value=").append(value);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

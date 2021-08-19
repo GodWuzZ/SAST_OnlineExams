@@ -11,10 +11,9 @@ import java.util.Map;
  * @description
  */
 public interface AmsProblemService {
-    int insertProblemDetails(AmsProblemDetails amsProblemDetails);
-    int updateProblemDetails(AmsProblemDetails amsProblemDetails);
-    Map<String, Long> deleteProblemDetails(Map<String,Long>idList);
+    void updateProblemDetails(AmsProblemDetails amsProblemDetails);
+    void deleteProblemDetails(Map<String,Long>idList);
     List<AmsProblemDetails>getProblemList();
     AmsProblemDetails getProblem(Long id);
-    int addProblemsMassively(List<AmsProblemDetails>problemDetails);
+    void updateProblemsMassively(List<AmsProblemDetails>problemDetails);
 }

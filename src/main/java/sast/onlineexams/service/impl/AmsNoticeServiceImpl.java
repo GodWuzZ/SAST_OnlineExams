@@ -18,18 +18,16 @@ import java.util.List;
 public class AmsNoticeServiceImpl implements AmsNoticeService {
     @Autowired
     private AmsAnnouncementsMapper amsAnnouncementsMapper;
-    @Override
-    public int insertNotice(AmsAnnouncements announcements) {
-        return amsAnnouncementsMapper.insertSelective(announcements);
-    }
 
     @Override
-    public int deleteNotice(Long id) {
-        return amsAnnouncementsMapper.deleteByPrimaryKey(id);
+    public void deleteNotice(Long id) {
+        amsAnnouncementsMapper.deleteByPrimaryKey(id);
     }
 
     @Override
     public int updateNotice(AmsAnnouncements announcements) {
+        if (announcements.getId()==null)
+            return amsAnnouncementsMapper.insertSelective(announcements);
         return amsAnnouncementsMapper.updateByPrimaryKeySelective(announcements);
     }
 

@@ -78,6 +78,16 @@ public class JwtTokenUtil {
         return username;
     }
 
+    public Date getIatFromToken(String token){
+        Date iat;
+        try {
+            Claims claims = getClaimsFromToken(token);
+            iat=claims.getIssuedAt();
+        }catch (Exception e) {
+            iat = null;
+        }
+        return iat;
+    }
     /**
      * 从token中获取管理员标识
      */

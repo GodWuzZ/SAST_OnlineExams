@@ -26,9 +26,9 @@ public class AmsNoticeController {
 
     @PostMapping("/admin/sendNotice")
     @PreAuthorize("hasAuthority('ams:announcements:create')")
-    public CommonResult sendNotice(@RequestBody List<AmsAnnouncements> announcements){
-        webSocket.sendAllMessage("小冯给你发来的公告内容哦",announcements);
-        return CommonResult.success(announcements);
+    public CommonResult sendNotice(@RequestBody AmsAnnouncements announcement){
+        webSocket.sendAllMessage("小冯给你发来的公告内容哦",announcement);
+        return CommonResult.success(announcement,"发送公告成功");
     }
 
     @PostMapping("/admin/sendMessage")
@@ -38,34 +38,35 @@ public class AmsNoticeController {
         Map<String,String> map=new HashMap<>();
         map.put("username",username);
         map.put("message",message);
-        return CommonResult.success(map);
+        return CommonResult.success(map,"单点发送成功");
     }
 
     @PreAuthorize("hasAuthority('ams:announcements:create')")
     @PostMapping("/admin/notice")
-    public CommonResult insertNotice(@RequestBody AmsAnnouncements announcement){
-        return CommonResult.success(amsNoticeService.insertNotice(announcement));
+    public CommonResult updateNotice(@RequestBody AmsAnnouncements announcement){
+        Long id = announcement.getId();
+        amsNoticeService.updateNotice(announcement);
+        if (id==null) {
+            return CommonResult.success(announcement, "添加成功");
+        }
+        return CommonResult.success(announcement,"修改成功");
     }
 
     @PreAuthorize("hasAuthority('ams:announcements:delete')")
     @DeleteMapping("/admin/notice")
     public CommonResult deleteNotice(@RequestParam Long id){
-        return CommonResult.success(amsNoticeService.deleteNotice(id));
+        amsNoticeService.deleteNotice(id);
+        return CommonResult.success(null,"删除成功");
     }
 
-    @PreAuthorize("hasAuthority('ams:announcements:update')")
-    @PutMapping("/admin/notice")
-    public CommonResult updateNoice(@RequestBody AmsAnnouncements announcement){
-        return CommonResult.success(amsNoticeService.updateNotice(announcement));
-    }
 
     @GetMapping("/notice")
     public CommonResult getNotices(){
-        return CommonResult.success(amsNoticeService.getNoticeList());
+        return CommonResult.success(amsNoticeService.getNoticeList(),"获取公告列表成功");
     }
 
     @GetMapping("/notice/{id}")
     public CommonResult getNotice(@PathVariable("id")Long id){
-        return CommonResult.success(amsNoticeService.getNoticeById(id));
+        return CommonResult.success(amsNoticeService.getNoticeById(id),"获取公告成功");
     }
 }

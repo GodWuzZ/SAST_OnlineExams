@@ -1,5 +1,6 @@
 package sast.onlineexams.dto;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,9 +20,13 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 public class AmsProblemDetails {
+    @JsonView({AmsProblems.ProblemSimpleView.class, AmsProblems.ProblemDetailView.class})
     private AmsProblems problem;
+    @JsonView(AmsProblems.ProblemSimpleView.class)
     private List<AmsProblemImages>images;
+    @JsonView(AmsProblems.ProblemSimpleView.class)
     private List<AmsProblemAttachments>attachments;
+    @JsonView(AmsProblems.ProblemSimpleView.class)
     private List<AmsProblemOptions>options;
 
 }

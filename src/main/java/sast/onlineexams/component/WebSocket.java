@@ -69,11 +69,13 @@ public class WebSocket {
 
     // 此为单点消息
     public void sendOneMessage(String username, String message) {
+        JSONObject result=new JSONObject();
+        result.putOnce("message",message);
         LOGGER.info("[websocket消息]单点消息:"+message);
         Session session = sessionPool.get(username);
         if (session != null) {
             try {
-                session.getAsyncRemote().sendText(message);
+                session.getAsyncRemote().sendText(result.toString());
             } catch (Exception e) {
                 e.printStackTrace();
             }

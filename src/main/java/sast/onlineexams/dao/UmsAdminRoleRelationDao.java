@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import sast.onlineexams.mbg.model.UmsPermission;
+import sast.onlineexams.mbg.model.UmsRole;
 
 import java.util.List;
 
@@ -19,4 +20,8 @@ public interface UmsAdminRoleRelationDao {
      * 获取用户所有权限(包括+-权限)
      */
     List<UmsPermission> getPermissionList(@Param("adminId") Long adminId);
+    /**
+     * 获取用户所有角色信息
+     */
+    List<UmsRole>getRoleList(@Param("adminId")Long adminId);
 }

@@ -19,7 +19,7 @@ public class CmsAnswers implements Serializable {
      */
     private Long problemId;
 
-    private String option;
+    private String optionValue;
 
     private String content;
 
@@ -49,12 +49,12 @@ public class CmsAnswers implements Serializable {
         this.problemId = problemId;
     }
 
-    public String getOption() {
-        return option;
+    public String getOptionValue() {
+        return optionValue;
     }
 
-    public void setOption(String option) {
-        this.option = option;
+    public void setOptionValue(String optionValue) {
+        this.optionValue = optionValue;
     }
 
     public String getContent() {
@@ -74,7 +74,7 @@ public class CmsAnswers implements Serializable {
         sb.append(", id=").append(id);
         sb.append(", studentId=").append(studentId);
         sb.append(", problemId=").append(problemId);
-        sb.append(", option=").append(option);
+        sb.append(", optionValue=").append(optionValue);
         sb.append(", content=").append(content);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");

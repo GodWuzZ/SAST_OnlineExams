@@ -14,9 +14,8 @@ import java.util.List;
 public interface UmsStudentService {
     String login(String username, String password);
     UmsStudent getStudentByUsername(String username);
-    int insertStudent(UmsStudent umsStudent);
-    int insertStudentMassively(List<UmsStudent> umsStudents);
-    int updateStudent(UmsStudent umsStudent);
-    int deleteStudent(long id);
+    int updateStudentMassively(List<UmsStudent> umsStudents);
+    UmsStudent updateStudent(UmsStudent umsStudent);
+    void deleteStudent(long id);
     List<UmsStudent> studentList();
 }

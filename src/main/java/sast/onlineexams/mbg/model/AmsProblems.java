@@ -1,11 +1,12 @@
 package sast.onlineexams.mbg.model;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import sast.onlineexams.common.api.CommonResult;
 
 import java.io.Serializable;
 
 public class AmsProblems implements Serializable {
-    public interface ProblemSimpleView{};
+    public interface ProblemSimpleView extends CommonResult.CommonResultView {};
     public interface ProblemDetailView extends ProblemSimpleView{};
     @JsonView(ProblemSimpleView.class)
     private Long id;

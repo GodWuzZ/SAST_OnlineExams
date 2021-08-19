@@ -1,12 +1,13 @@
 package sast.onlineexams.mbg.model;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import sast.onlineexams.common.api.CommonResult;
 
 import java.io.Serializable;
 import java.util.Date;
 
 public class UmsAdmin implements Serializable {
-    public interface AdminSimpleView{};
+    public interface AdminSimpleView extends CommonResult.CommonResultView {};
     public interface AdminDetailView extends AdminSimpleView{};
     public interface AdminMoreDetailView extends AdminDetailView{};
     @JsonView({AdminSimpleView.class})

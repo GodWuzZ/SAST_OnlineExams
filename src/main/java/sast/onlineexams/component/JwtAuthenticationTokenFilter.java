@@ -1,5 +1,6 @@
 package sast.onlineexams.component;
 
+import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
 import sast.onlineexams.common.utils.JwtTokenUtil;
+import sast.onlineexams.common.utils.RedisUtil;
 import sast.onlineexams.dto.StudentUserDetails;
 import sast.onlineexams.service.UmsStudentService;
 
@@ -19,6 +21,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * @author sherman
@@ -37,7 +41,12 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     private String tokenHeader;
     @Value("${jwt.tokenHead}")
     private String tokenHead;
+    @Value("${redis.key.token.prefix}")
+    private String redisPrefix;
+    @Autowired
+    private RedisUtil redisUtil;
 
+    @SneakyThrows
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
         String authHeader = request.getHeader(this.tokenHeader);
@@ -45,27 +54,42 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             String authToken = authHeader.substring(this.tokenHead.length());// The part after "Bearer "
             String username = jwtTokenUtil.getUserNameFromToken(authToken);
             Boolean isAdmin = jwtTokenUtil.getIsAdminFromToken(authToken);
+            Date iat = jwtTokenUtil.getIatFromToken(authToken);
             if(isAdmin!=null){
                 if(isAdmin){
                     LOGGER.info("checking admin username:{}", username);
                     if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                         UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
-                        if (jwtTokenUtil.validateToken(authToken, userDetails)) {
-                            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-                            authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                            LOGGER.info("authenticated admin:{}", username);
-                            SecurityContextHolder.getContext().setAuthentication(authentication);
+                        Date last_login = (Date) redisUtil.get(redisPrefix+"admin_"+userDetails.getUsername());
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        iat = dateFormat.parse(dateFormat.format(iat));
+                        if (last_login!=null)
+                            last_login = dateFormat.parse(dateFormat.format(last_login));
+                        if (last_login==null||iat.compareTo(last_login)>=0){
+                            if (jwtTokenUtil.validateToken(authToken, userDetails)) {
+                                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                                LOGGER.info("authenticated admin:{}", username);
+                                SecurityContextHolder.getContext().setAuthentication(authentication);
+                            }
                         }
                     }
                 }else{
                     LOGGER.info("checking student username:{}", username);
                     if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                         UserDetails userDetails = new StudentUserDetails(umsStudentService.getStudentByUsername(username));
-                        if (jwtTokenUtil.validateToken(authToken, userDetails)) {
-                            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, null);
-                            authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                            LOGGER.info("authenticated student:{}", username);
-                            SecurityContextHolder.getContext().setAuthentication(authentication);
+                        Date last_login = (Date) redisUtil.get(redisPrefix+userDetails.getUsername());
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        iat = dateFormat.parse(dateFormat.format(iat));
+                        if (last_login!=null)
+                            last_login = dateFormat.parse(dateFormat.format(last_login));
+                        if (last_login==null||iat.compareTo(last_login)>=0) {
+                            if (jwtTokenUtil.validateToken(authToken, userDetails)) {
+                                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, null);
+                                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                                LOGGER.info("authenticated student:{}", username);
+                                SecurityContextHolder.getContext().setAuthentication(authentication);
+                            }
                         }
                     }
                 }

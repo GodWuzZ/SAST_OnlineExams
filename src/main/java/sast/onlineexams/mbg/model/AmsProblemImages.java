@@ -1,8 +1,11 @@
 package sast.onlineexams.mbg.model;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import java.io.Serializable;
 
 public class AmsProblemImages implements Serializable {
+    @JsonView(AmsProblems.ProblemSimpleView.class)
     private Long id;
 
     /**
@@ -10,6 +13,7 @@ public class AmsProblemImages implements Serializable {
      *
      * @mbg.generated
      */
+    @JsonView(AmsProblems.ProblemSimpleView.class)
     private Long problemId;
 
     /**
@@ -17,6 +21,7 @@ public class AmsProblemImages implements Serializable {
      *
      * @mbg.generated
      */
+    @JsonView(AmsProblems.ProblemSimpleView.class)
     private String name;
 
     /**
@@ -24,6 +29,7 @@ public class AmsProblemImages implements Serializable {
      *
      * @mbg.generated
      */
+    @JsonView(AmsProblems.ProblemSimpleView.class)
     private String url;
 
     private static final long serialVersionUID = 1L;

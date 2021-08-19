@@ -32,76 +32,75 @@ public class AmsProblemServiceImpl implements AmsProblemService {
     private AmsProblemAttachmentsMapper attachmentsMapper;
     @Autowired
     private AmsProblemOptionsMapper optionsMapper;
+
     @Override
-    public int insertProblemDetails(AmsProblemDetails amsProblemDetails) {
-        int num = problemsMapper.insertSelective(amsProblemDetails.getProblem());
-        Long id = amsProblemDetails.getProblem().getId();
+    public void updateProblemDetails(AmsProblemDetails amsProblemDetails) {
+        AmsProblems problem = amsProblemDetails.getProblem();
         List<AmsProblemImages> images=amsProblemDetails.getImages();
         List<AmsProblemAttachments>attachments=amsProblemDetails.getAttachments();
         List<AmsProblemOptions>options=amsProblemDetails.getOptions();
-        for(AmsProblemImages image:images){
-            image.setProblemId(id);
-            imagesMapper.insertSelective(image);
+        if(problem.getId()==null){
+            problemsMapper.insertSelective(problem);
+        }else {
+            problemsMapper.updateByPrimaryKeySelective(problem);
         }
-        for(AmsProblemAttachments attachment:attachments){
-            attachment.setProblemId(id);
-            attachmentsMapper.insertSelective(attachment);
-        }
-        for(AmsProblemOptions option:options){
-            option.setProblemId(id);
-            optionsMapper.insertSelective(option);
-        }
-        return num;
+        if(images!=null&&images.size()>0)
+            for(AmsProblemImages image:images){
+                if (image.getId()==null){
+                    image.setProblemId(problem.getId());
+                    imagesMapper.insertSelective(image);
+                }else{
+                    imagesMapper.updateByPrimaryKeySelective(image);
+                }
+            }
+        if(attachments!=null&&attachments.size()>0)
+            for(AmsProblemAttachments attachment:attachments){
+                if (attachment.getId()==null){
+                    attachment.setProblemId(problem.getId());
+                    attachmentsMapper.insertSelective(attachment);
+                }else {
+                    attachmentsMapper.updateByPrimaryKeySelective(attachment);
+                }
+            }
+        if(options!=null&&options.size()>0)
+            for(AmsProblemOptions option:options){
+                if (option.getId()==null){
+                    option.setProblemId(problem.getId());
+                    optionsMapper.insertSelective(option);
+                }else{
+                    optionsMapper.updateByPrimaryKeySelective(option);
+                }
+            }
     }
-
     @Override
-    public int updateProblemDetails(AmsProblemDetails amsProblemDetails) {
-        int num = problemsMapper.updateByPrimaryKeySelective(amsProblemDetails.getProblem());
-        Long id = amsProblemDetails.getProblem().getId();
-        List<AmsProblemImages> images=amsProblemDetails.getImages();
-        List<AmsProblemAttachments>attachments=amsProblemDetails.getAttachments();
-        List<AmsProblemOptions>options=amsProblemDetails.getOptions();
-        for(AmsProblemImages image:images){
-            image.setProblemId(id);
-            imagesMapper.updateByPrimaryKeySelective(image);
-        }
-        for(AmsProblemAttachments attachment:attachments){
-            attachment.setProblemId(id);
-            attachmentsMapper.updateByPrimaryKeySelective(attachment);
-        }
-        for(AmsProblemOptions option:options){
-            option.setProblemId(id);
-            optionsMapper.insertSelective(option);
-        }
-        return num;
-    }
-
-    @Override
-    public Map<String, Long> deleteProblemDetails(Map<String, Long> idList) {
+    public void deleteProblemDetails(Map<String, Long> idList) {
         if (idList.containsKey("image_id")){
             Long image_id=idList.get("image_id");
-            imagesMapper.deleteByPrimaryKey(image_id);
+            if (image_id!=null)
+                imagesMapper.deleteByPrimaryKey(image_id);
         }
         if (idList.containsKey("attachment_id")){
             Long attachment_id=idList.get("attachment_id");
-            attachmentsMapper.deleteByPrimaryKey(attachment_id);
+            if (attachment_id!=null)
+                attachmentsMapper.deleteByPrimaryKey(attachment_id);
         }
         if(idList.containsKey("option_id")){
             Long option_id=idList.get("option_id");
-            optionsMapper.deleteByPrimaryKey(option_id);
+            if(option_id!=null)
+                optionsMapper.deleteByPrimaryKey(option_id);
         }
         if (idList.containsKey("problem_id")){
             Long problem_id=idList.get("problem_id");
-            problemsMapper.deleteByPrimaryKey(problem_id);
+            if (problem_id!=null)
+                problemsMapper.deleteByPrimaryKey(problem_id);
         }
-        return idList;
     }
 
     @Override
     public List<AmsProblemDetails> getProblemList() {
         AmsProblemsExample example = new AmsProblemsExample();
         example.createCriteria();
-        List<AmsProblems> problems= problemsMapper.selectByExample(example);
+        List<AmsProblems> problems= problemsMapper.selectByExampleWithBLOBs(example);
         List<AmsProblemDetails>results=new ArrayList<>();
         if(problems!=null&&problems.size()>0){
             List<AmsProblemImages>images;
@@ -142,12 +141,9 @@ public class AmsProblemServiceImpl implements AmsProblemService {
     }
 
     @Override
-    public int addProblemsMassively(List<AmsProblemDetails>problemDetails) {
-        int count=0;
+    public void updateProblemsMassively(List<AmsProblemDetails>problemDetails) {
         for(AmsProblemDetails problemDetail:problemDetails){
-            insertProblemDetails(problemDetail);
-            count++;
+            updateProblemDetails(problemDetail);
         }
-        return count;
     }
 }

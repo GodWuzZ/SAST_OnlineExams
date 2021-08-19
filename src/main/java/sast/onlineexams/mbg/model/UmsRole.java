@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class UmsRole implements Serializable {
-    @JsonView(UmsAdmin.AdminDetailView.class)
+    @JsonView(UmsAdmin.AdminSimpleView.class)
     private Long id;
 
     /**
@@ -14,7 +14,7 @@ public class UmsRole implements Serializable {
      *
      * @mbg.generated
      */
-    @JsonView(UmsAdmin.AdminDetailView.class)
+    @JsonView(UmsAdmin.AdminSimpleView.class)
     private String name;
 
     /**
@@ -22,7 +22,7 @@ public class UmsRole implements Serializable {
      *
      * @mbg.generated
      */
-    @JsonView(UmsAdmin.AdminMoreDetailView.class)
+    @JsonView(UmsAdmin.AdminDetailView.class)
     private String description;
 
     /**
@@ -30,7 +30,7 @@ public class UmsRole implements Serializable {
      *
      * @mbg.generated
      */
-    @JsonView(UmsAdmin.AdminMoreDetailView.class)
+    @JsonView(UmsAdmin.AdminDetailView.class)
     private Date createTime;
 
     /**
@@ -38,7 +38,7 @@ public class UmsRole implements Serializable {
      *
      * @mbg.generated
      */
-    @JsonView(UmsAdmin.AdminMoreDetailView.class)
+    @JsonView(UmsAdmin.AdminDetailView.class)
     private Integer status;
 
     private static final long serialVersionUID = 1L;

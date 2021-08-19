@@ -6,6 +6,22 @@ spring:
     url: jdbc:mysql://localhost:3306/OnlineExams?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     username: sast
     password: sast_forever
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  redis:
+    host: 121.4.68.97
+    database: 1 # Redis数据库索引（默认为0）
+    port: 6379 # Redis服务器连接端口
+    password: # Redis服务器连接密码（默认为空）
+    lettuce:
+      pool:
+        max-active: 8 # 连接池最大连接数（使用负值表示没有限制）
+        max-wait: -1ms # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-idle: 8 # 连接池中的最大空闲连接
+        min-idle: 0 # 连接池中的最小空闲连接
+    timeout: 3000ms # 连接超时时间（毫秒）
+
 
 mybatis:
   mapper-locations:
@@ -29,6 +45,21 @@ logging:
 # 自定义jwt key
 jwt:
   tokenHeader: Authorization #JWT存储的请求头
-  secret: mySecret #JWT加解密使用的密钥
-  expiration: 14400 #JWT的超期限时间(60*60*24)
+  secret: Natsu #JWT加解密使用的密钥
+  expiration: 14400 #JWT的超期限时间(60*60*4)
   tokenHead: Bearer  #JWT负载中拿到开头
+
+# 自定义redis key
+redis:
+  key:
+    token:
+      prefix: last_login_
+      expire: 14400
+
+# 管理员和学生默认密码
+ums:
+  default:
+    admin:
+      password: 123456
+    student:
+      password: 123456

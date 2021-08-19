@@ -1,8 +1,11 @@
 package sast.onlineexams.mbg.model;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import java.io.Serializable;
 
 public class UmsGroups implements Serializable {
+    @JsonView(UmsAdmin.AdminSimpleView.class)
     private Long id;
 
     /**
@@ -10,6 +13,7 @@ public class UmsGroups implements Serializable {
      *
      * @mbg.generated
      */
+    @JsonView(UmsAdmin.AdminSimpleView.class)
     private String name;
 
     /**

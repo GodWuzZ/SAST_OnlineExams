@@ -1,5 +1,6 @@
 package sast.onlineexams.service.impl;
 
+import io.netty.util.internal.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -15,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import sast.onlineexams.common.utils.JwtTokenUtil;
 import sast.onlineexams.dao.UmsAdminRoleRelationDao;
+import sast.onlineexams.dto.AdminUserDetails;
 import sast.onlineexams.mbg.mapper.UmsAdminMapper;
 import sast.onlineexams.mbg.mapper.UmsGroupsMapper;
 import sast.onlineexams.mbg.mapper.UmsPermissionMapper;
@@ -25,6 +27,7 @@ import sast.onlineexams.service.UmsAdminService;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author sherman
@@ -42,6 +45,8 @@ public class UmsAdminServiceImpl implements UmsAdminService {
     private PasswordEncoder passwordEncoder;
     @Value("${jwt.tokenHead}")
     private String tokenHead;
+    @Value("$(ums.default.admin.password)")
+    private String DEFAULT_ADMIN_PASSWORD;
     @Autowired
     private UmsAdminMapper adminMapper;
     @Autowired
@@ -52,6 +57,7 @@ public class UmsAdminServiceImpl implements UmsAdminService {
     private UmsAdminRoleRelationDao adminRoleRelationDao;
     @Autowired
     private UmsGroupsMapper umsGroupsMapper;
+
 
     @Override
     public UmsAdmin getAdminByUsername(String username) {
@@ -74,7 +80,7 @@ public class UmsAdminServiceImpl implements UmsAdminService {
         UmsAdminExample example = new UmsAdminExample();
         example.createCriteria().andUsernameEqualTo(umsAdmin.getUsername());
         List<UmsAdmin> umsAdminList = adminMapper.selectByExample(example);
-        if (umsAdminList.size() > 0) {
+        if (umsAdminList!=null&&umsAdminList.size() > 0) {
             return null;
         }
         //将密码进行加密操作
@@ -115,25 +121,52 @@ public class UmsAdminServiceImpl implements UmsAdminService {
     }
 
     @Override
-    public int insertAdmin(UmsAdmin umsAdmin) {
-        return adminMapper.insertSelective(umsAdmin);
+    public UmsAdmin updateAdmin(UmsAdmin umsAdmin) {
+        if(umsAdmin.getId()==null) {
+            //查询是否有相同用户名的用户
+            UmsAdminExample example = new UmsAdminExample();
+            example.createCriteria().andUsernameEqualTo(umsAdmin.getUsername());
+            List<UmsAdmin> umsAdminList = adminMapper.selectByExample(example);
+            if (umsAdminList!=null&&umsAdminList.size() > 0) {
+                return null;
+            }
+            if(umsAdmin.getPassword()==null){
+                umsAdmin.setPassword(DEFAULT_ADMIN_PASSWORD);
+            }
+            //将密码进行加密操作
+            String encodePassword = passwordEncoder.encode(umsAdmin.getPassword());
+            umsAdmin.setPassword(encodePassword);
+            umsAdmin.setCreateTime(new Date());
+            if(umsAdmin.getStatus()==null)
+                umsAdmin.setStatus(1);
+            adminMapper.insertSelective(umsAdmin);
+            return umsAdmin;
+        }
+        if(umsAdmin.getPassword()!=null){
+            //将密码进行加密操作
+            String encodePassword = passwordEncoder.encode(umsAdmin.getPassword());
+            umsAdmin.setPassword(encodePassword);
+        }
+        adminMapper.updateByPrimaryKeySelective(umsAdmin);
+        return umsAdmin;
     }
 
     @Override
-    public int updateAdmin(UmsAdmin umsAdmin) {
-        return adminMapper.updateByPrimaryKeySelective(umsAdmin);
+    public void deleteAdmin(long id) {
+        adminMapper.deleteByPrimaryKey(id);
     }
 
     @Override
-    public int deleteAdmin(long id) {
-        return adminMapper.deleteByPrimaryKey(id);
-    }
-
-    @Override
-    public List<UmsAdmin> adminList() {
+    public List<AdminUserDetails> adminList() {
         UmsAdminExample example = new UmsAdminExample();
         example.createCriteria();
-        return adminMapper.selectByExample(example);
+        List<UmsAdmin>adminList = adminMapper.selectByExample(example);
+        List<AdminUserDetails>adminUserDetailsList = new ArrayList<>();
+        for(UmsAdmin admin:adminList){
+            List<Long> idList = adminRoleRelationDao.getRoleList(admin.getId()).stream().map(UmsRole::getId).collect(Collectors.toList());
+            adminUserDetailsList.add(new AdminUserDetails(admin,idList));
+        }
+        return adminUserDetailsList;
     }
 
     @Override
@@ -144,18 +177,24 @@ public class UmsAdminServiceImpl implements UmsAdminService {
     }
 
     @Override
-    public int addGroup(UmsGroups group) {
-        return umsGroupsMapper.insertSelective(group);
+    public UmsGroups updateGroup(UmsGroups group) {
+        if(group.getId()==null) {
+            UmsGroupsExample example = new UmsGroupsExample();
+            example.createCriteria().andNameEqualTo(group.getName());
+            List<UmsGroups>groups = umsGroupsMapper.selectByExample(example);
+            if(groups.size()>0){
+                return null;
+            }
+            umsGroupsMapper.insertSelective(group);
+            return group;
+        }
+        umsGroupsMapper.updateByPrimaryKeySelective(group);
+        return group;
     }
 
     @Override
-    public int updateGroup(UmsGroups group) {
-        return umsGroupsMapper.updateByPrimaryKeySelective(group);
-    }
-
-    @Override
-    public int deleteGroup(Long id) {
-        return umsGroupsMapper.deleteByPrimaryKey(id);
+    public void deleteGroup(Long id) {
+        umsGroupsMapper.deleteByPrimaryKey(id);
     }
 
     @Override
@@ -167,5 +206,17 @@ public class UmsAdminServiceImpl implements UmsAdminService {
             return groups;
         }
         return null;
+    }
+
+    @Override
+    public void updateLoginTime(String username) {
+        UmsAdminExample example = new UmsAdminExample();
+        example.createCriteria().andUsernameEqualTo(username);
+        List<UmsAdmin>admins = adminMapper.selectByExample(example);
+        if(admins!=null&&admins.size()>0){
+            UmsAdmin admin = admins.get(0);
+            admin.setLoginTime(new Date());
+            adminMapper.updateByPrimaryKeySelective(admin);
+        }
     }
 }

@@ -1,5 +1,6 @@
 package sast.onlineexams.service;
 
+import sast.onlineexams.dto.AdminUserDetails;
 import sast.onlineexams.mbg.model.UmsAdmin;
 import sast.onlineexams.mbg.model.UmsGroups;
 import sast.onlineexams.mbg.model.UmsPermission;
@@ -35,14 +36,12 @@ public interface UmsAdminService {
      * 获取用户所有权限（包括角色权限和+-权限）
      */
     List<UmsPermission> getPermissionList(Long adminId);
-    int insertAdmin(UmsAdmin umsAdmin);
-    int updateAdmin(UmsAdmin umsAdmin);
-    int deleteAdmin(long id);
-    List<UmsAdmin>adminList();
+    UmsAdmin updateAdmin(UmsAdmin umsAdmin);
+    void deleteAdmin(long id);
+    List<AdminUserDetails>adminList();
     List<UmsRole>getRoleList();
-    int addGroup(UmsGroups group);
-    int updateGroup(UmsGroups group);
-    int deleteGroup(Long id);
+    UmsGroups updateGroup(UmsGroups group);
+    void deleteGroup(Long id);
     List<UmsGroups>getGroups();
-
+    void updateLoginTime(String username);
 }

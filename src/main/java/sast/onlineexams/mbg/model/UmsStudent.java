@@ -1,12 +1,13 @@
 package sast.onlineexams.mbg.model;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import sast.onlineexams.common.api.CommonResult;
 
 import java.io.Serializable;
 
 public class UmsStudent implements Serializable {
 
-    public interface StudentSimpleView{};
+    public interface StudentSimpleView extends CommonResult.CommonResultView {};
     public interface StudentDetailView extends StudentSimpleView{};
     @JsonView(StudentDetailView.class)
     private Long id;

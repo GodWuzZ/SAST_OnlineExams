@@ -12,6 +12,7 @@
         WHERE
             ar.admin_id = #{adminId}
           AND p.id IS NOT NULL
+          AND r.status = 1
           AND p.id NOT IN (
             SELECT
                 p.id
@@ -31,5 +32,15 @@
         WHERE
             p.type = 1
           AND pr.admin_id = #{adminId}
+    </select>
+    <select id="getRoleList" resultMap="sast.onlineexams.mbg.mapper.UmsRoleMapper.BaseResultMap">
+        SELECT
+            r.*
+        FROM
+            ums_admin_role_relation ar
+                LEFT JOIN ums_role r ON ar.role_id = r.id
+        WHERE
+            ar.admin_id = #{adminId}
+          AND r.id IS NOT NULL
     </select>
 </mapper>
