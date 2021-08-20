@@ -39,7 +39,7 @@ eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzaGVybWFuIiwibmJmIjoxNjI5MDk5OTIxLCJjcmVhdGVkIjo
 
 可以在该网站上获得解析结果：https://www.box3.cn/tools/jwt.html
 
-![image-20210820094616629](C:\Users\22187\AppData\Roaming\Typora\typora-user-images\image-20210820094616629.png)
+![jwt](https://cdn.jsdelivr.net/gh/GodWuzZ/CDN@1.4/pics/jwt.png)
 
 ### JWT实现认证和授权的原理
 
